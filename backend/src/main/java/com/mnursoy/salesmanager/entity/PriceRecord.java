@@ -18,6 +18,5 @@ public class PriceRecord extends AbstractEntity {
 
 	private Long productId;
 	private ProductPrice price;
-	private Date activationDate;
 
 }

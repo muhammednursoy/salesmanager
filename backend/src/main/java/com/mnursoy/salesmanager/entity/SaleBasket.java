@@ -18,6 +18,5 @@ public class SaleBasket extends AbstractEntity {
 
 	@OneToMany
 	private Set<SaleRecord> saleRecords;
-	private Date purchaseDate;
 
 }

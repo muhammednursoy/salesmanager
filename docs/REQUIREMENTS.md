@@ -26,6 +26,7 @@ changes in prices in a period.
      1. The application shall have ability to create products
      1. The application shall have ability to edit products
      1. The application shall have ability to list products
+     1. The application shall have ability to delete products
      1. Products shall have a name, price, a product category, a product supplier, a description
      1. Product price shall have a unit and a value
      1. Allowed product price units shall be by piece, kilogram, gram and liter
@@ -38,6 +39,9 @@ changes in prices in a period.
      1. The application shall have ability list products by product category
      1. The application shall have ability list products by product supplier
      1. The application shall have ability to change price of products
+     1. Deleted entities(categories, suppliers and products) shall be put in inactive state and not be deleted from storage immediately
+     1. Inactive entities shall not appear in search results
+     1. Inactive entities shall not be added to sale baskets
     
 1. Sales
      1. The application shall have ability to prepare a shopping basket with multiple products
