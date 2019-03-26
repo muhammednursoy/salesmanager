@@ -79,7 +79,15 @@ changes in prices in a period.
      * 4.8. The application shall have ability to show revenue from a product on a monthly basis 
      * 4.9. The application shall have ability to show total amount of sales on a monthly basis
      * 4.10 The application shall have ability to show total revenue on a monthly basis
-
+    
+* Customers
+     * 5.1. The application shall have ability to attach customer email to shopping basket
+     * 5.2. The application shall have ability to send customer's shopping history as email
+     * 5.3. The application shall persists customer info when it is attached to a sale basket for the first time
+     * 5.4. The application shall have ability to attach previously saved customer emails to shopping baskets
+     * 5.5. The application shall have ability to list customers
+     * 5.6. The application shall have ability to delete customers
+     
 ### Technologies
 
 Spring, Angular
