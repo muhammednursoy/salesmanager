@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-6 offset-3">
+      <div class="jumbotron">
+        <form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
+          <div class="form-group">
+            <label for="nameInput">Ürün İsmi</label>
+            <input formControlName="name" type="text" class="form-control" id="nameInput" maxlength="120" [ngClass]="{ 'is-invalid': submitted && controls.name.errors }" />
+            <div *ngIf="submitted && controls.name.errors" class="invalid-feedback">
+              <div *ngIf="controls.name.errors.required">Zorunlu alan</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="priceInput">Fiyat</label>
+            <div class="input-group">
+              <input formControlName="price" type="text" appDecimal class="form-control" id="priceInput" maxlength="10" [ngClass]="{ 'is-invalid': submitted && controls.price.errors }" />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span>&#8378;</span>
+                </div>
+              </div>
+              <div *ngIf="submitted && controls.price.errors" class="invalid-feedback">
+                <div *ngIf="controls.price.errors.required">Zorunlu alan</div>
+                <div *ngIf="controls.price.errors.pattern">Fiyat sayısal bir değer olmalı</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="unit">Miktar</label>
+            <div class="input-group">
+              <input formControlName="unitAmount" type="text" appDecimal class="form-control" id="unit" placeholder="örn. 1 kg, 100 gram, 10 tane" maxlength="15" [ngClass]="{ 'is-invalid': submitted && controls.unitAmount.errors }" />
+              <div class="input-group-append">
+                <select formControlName="unit" class="form-control">
+                  <option *ngFor="let unit of units" [ngValue]="unit">{{unit.name}}</option>
+                </select>
+              </div>
+              <div *ngIf="submitted && controls.unitAmount.errors" class="invalid-feedback">
+                <div *ngIf="controls.unitAmount.errors.required">Zorunlu alan</div>
+                <div *ngIf="controls.unitAmount.errors.pattern">Miktar sayısal bir değer olmalı</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="descriptionInput">Ürün Bilgisi</label>
+            <textarea formControlName="description" class="form-control" id="descriptionInput" maxlength="800"></textarea>
+          </div>
+          <button *ngIf="!isUpdate" type="submit" class="btn btn-success" >Ürün Oluştur</button>
+          <button *ngIf="isUpdate" type="submit" class="btn btn-success" >Ürünü Güncelle</button>
+          <button type="button" class="btn btn-warning ml-3" routerLink="/products">İptal</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

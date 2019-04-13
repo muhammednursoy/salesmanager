@@ -1,10 +1,8 @@
 package com.mnursoy.salesmanager.entity;
 
-import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
@@ -15,11 +13,10 @@ import lombok.Data;
  */
 @Data
 @Entity
-public class SaleBasket extends AbstractEntity {
+public class Customer extends AbstractEntity {
 
+	private String email;
 	@OneToMany
-	private Set<SaleRecord> saleRecords;
-	@ManyToOne
-	private Customer customer;
+	private Set<SaleBasket> baskets;
 
 }

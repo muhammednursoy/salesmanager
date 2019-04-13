@@ -17,8 +17,8 @@ import lombok.Data;
 public class ProductPrice {
 
 	@Enumerated(EnumType.STRING)
-	private ProductPriceUnit unit;
-	private Double unitAmount;
+	private Unit unit;
+	private BigDecimal unitAmount;
 	private BigDecimal price;
 
 }

@@ -4,9 +4,10 @@ package com.mnursoy.salesmanager.entity.model;
  * @author Muhammed Nursoy
  *
  */
-public enum ProductPriceUnit {
+public enum Unit {
 	BY_PIECE,
 	GR,
 	KG,
-	LT
+	LT,
+	ML
 }

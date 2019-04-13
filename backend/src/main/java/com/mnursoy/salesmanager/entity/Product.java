@@ -4,20 +4,24 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.mnursoy.salesmanager.entity.model.ProductPrice;
 
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * @author Muhammed Nursoy
  *
  */
 @Data
+@ToString(callSuper = true)
 @Entity
 public class Product extends AbstractEntity {
 
 	private String name;
 	private String description;
+	@JsonUnwrapped
 	@Embedded
 	private ProductPrice price;
 	@ManyToOne
@@ -25,4 +29,11 @@ public class Product extends AbstractEntity {
 	@ManyToOne
 	private Supplier supplier;
 
+	public void patch(Product product) {
+		name = product.getName();
+		description = product.getDescription();
+		price = product.getPrice();
+		category = product.getCategory();
+		supplier = product.getSupplier();
+	}
 }

@@ -33,14 +33,14 @@ public class AbstractEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	protected Long id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate
-	private Date createdAt;
+	protected Date createdAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
-	private Date updatedAt;
+	protected Date updatedAt;
 
 }

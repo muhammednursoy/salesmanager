@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <!-- use Spring default values -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProfile name="dev">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <layout>
+                <Pattern>%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(%logger{0}){cyan} %X{mdcData}%clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</Pattern>
+            </layout>
+        </appender>
+
+        <logger name="com.mnursoy.salesmanager" level="DEBUG" additivity="false">
+            <appender-ref ref="CONSOLE" />
+        </logger>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
+
+    <springProfile name="test,prod">
+        <property name="SALESMANAGER_LOG_PATH" value="${SYS_SALESMANAGER_LOG_PATH:-/u01/salesmanager/logs}" />
+        <property name="SALESMANAGER_LOG_FILE_NAME" value="${SYS_SALESMANAGER_LOG_FILE_NAME:-salesmanager}" />
+
+        <property name="SALESMANAGER_LOG_FILE" value="${SALESMANAGER_LOG_PATH}/${SALESMANAGER_LOG_FILE_NAME}" />
+
+        <appender name="ROLLING_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${SALESMANAGER_LOG_FILE}.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- daily rollover -->
+                <fileNamePattern>${SALESMANAGER_LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            </rollingPolicy>
+
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %logger{0} %X{mdcData}: %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</pattern>
+            </encoder>
+        </appender>
+
+        <logger name="com.mnursoy.salesmanager" level="INFO" additivity="false">
+            <appender-ref ref="ROLLING_FILE_APPENDER" />
+        </logger>
+
+        <root level="INFO">
+            <appender-ref ref="ROLLING_FILE_APPENDER" />
+        </root>
+    </springProfile>
+</configuration>
