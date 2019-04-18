@@ -1,0 +1,77 @@
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-5">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Sepet</h5>
+          <h6 class="card-subtitle">Toplam Tutar: {{totalPrice}}&#8378;</h6>
+          <ul class="list-group list-group-flush mt-2">
+            <li *ngFor="let item of basket.saleRecords" class="list-group-item">
+              <a class="btn" (click)="deleteFromBasket(item)">
+                <i class="fas fa-times"></i>
+              </a>
+              {{item.soldProduct.name}}: {{item.amount}} {{item.unit | enums}} / {{item.collectedCash}}&#8378;
+              <small class="text-muted">{{item.soldProduct.unitAmount}}{{item.soldProduct.unit|enums}}/{{item.soldProduct.price}}&#8378;</small>
+              <div class="input-group">
+                <input type="text" appDecimal [(ngModel)]="item.amount" (keyup)="priceConverter.calculatePrice(item)">
+                <div class="input-group-append">
+                  <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="item.unit" (change)="priceConverter.calculatePrice(item)">
+                    <label *ngIf="item.soldProduct.unit == 'KG' || item.soldProduct.unit == 'GR'" ngbButtonLabel class="btn-primary">
+                      <input ngbButton type="radio" [value]="'KG'">
+                      kg
+                    </label>
+                    <label *ngIf="item.soldProduct.unit == 'KG' || item.soldProduct.unit == 'GR'" ngbButtonLabel class="btn-primary">
+                      <input ngbButton type="radio" [value]="'GR'">
+                      gr
+                    </label>
+                    <label *ngIf="item.soldProduct.unit == 'LT' || item.soldProduct.unit == 'ML'" ngbButtonLabel class="btn-primary">
+                      <input ngbButton type="radio" [value]="'LT'">
+                      lt
+                    </label>
+                    <label *ngIf="item.soldProduct.unit == 'LT' || item.soldProduct.unit == 'ML'" ngbButtonLabel class="btn-primary">
+                      <input ngbButton type="radio" [value]="'ML'">
+                      ml
+                    </label>
+                    <label *ngIf="item.soldProduct.unit == 'BY_PIECE'" ngbButtonLabel class="btn-primary">
+                      <input ngbButton type="radio" [value]="'BY_PIECE'">
+                      tane
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-outline-primary" [disabled]="basket.saleRecords.length < 1" (click)="saveSaleRecord()">{{totalPrice ? totalPrice + '&#8378; ' : ''}}Satış Yap!</button>
+          <button type="button" class="btn btn-outline-danger ml-3 float-right" [disabled]="basket.saleRecords.length < 1" (click)="basket.saleRecords=[]">Sepeti Temizle</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-7">
+      <form class="form-inline" [formGroup]="form">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+          <input type="text" formControlName="searchInput" class="form-control" placeholder="Ürün Ara">
+        </div>
+      </form>
+      <div class="row mt-3">
+        <ng-container *ngFor="let product of products$ | async">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <div class="card border-info m-2">
+              <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+                <h6 class="card-subtitle">{{product.unitAmount}} {{product.unit | enums}} / {{product.price}} &#8378;</h6>
+                <p class="card-text">{{product.description}}</p>
+                <button *ngIf="!isProductInBasket(product)" type="button" class="btn btn-primary" (click)="addToBasket(product)">Sepete Ekle</button>
+                <span *ngIf="isProductInBasket(product)" class="font-italic">Ürün Sepette</span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

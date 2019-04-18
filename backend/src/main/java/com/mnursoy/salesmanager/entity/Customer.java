@@ -17,6 +17,6 @@ public class Customer extends AbstractEntity {
 
 	private String email;
 	@OneToMany
-	private Set<SaleBasket> baskets;
+	private Set<ShoppingBasket> baskets;
 
 }

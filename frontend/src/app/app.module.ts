@@ -14,29 +14,34 @@ import {ProductCreateComponent} from "./product-catalog/product/product-create/p
 import {ProductListComponent} from "./product-catalog/product/product-list/product-list.component";
 import {DecimalNumberDirective} from "./common/decimal-directive";
 import {EnumConverterPipe} from "./common/enum-converter.pipe";
+import {ShoppingCenterComponent} from "./sales/shopping/shopping-center/shopping-center.component";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CategoryCreateComponent,
-    CategoryEditComponent,
-    CategoryListComponent,
-    ProductCreateComponent,
-    ProductListComponent,
-    DecimalNumberDirective,
-    EnumConverterPipe,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    FormsModule,
-    CookieModule.forRoot(),
-  ],
-  providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: CsrfTokenInterceptor, multi: true},
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        CategoryCreateComponent,
+        CategoryEditComponent,
+        CategoryListComponent,
+        ProductCreateComponent,
+        ProductListComponent,
+        DecimalNumberDirective,
+        EnumConverterPipe,
+        ShoppingCenterComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        FormsModule,
+        NgbModule,
+        CookieModule.forRoot(),
+    ],
+    providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: CsrfTokenInterceptor, multi: true},
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

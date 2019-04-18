@@ -5,9 +5,9 @@ import {CategoryEditComponent} from "./product-catalog/category/category-edit/ca
 import {CategoryListComponent} from "./product-catalog/category/category-list/category-list.component";
 import {CategoryResolverService} from "./product-catalog/category/category-resolver.service";
 import {ProductCreateComponent} from "./product-catalog/product/product-create/product-create.component";
-import {ProductEditComponent} from "./product-catalog/product/product-edit/product-edit.component";
 import {ProductResolverService} from "./product-catalog/product/product-resolver.service";
 import {ProductListComponent} from "./product-catalog/product/product-list/product-list.component";
+import {ShoppingCenterComponent} from "./sales/shopping/shopping-center/shopping-center.component";
 
 const routes: Routes = [
   {
@@ -47,6 +47,15 @@ const routes: Routes = [
       {
         path: '',
         component: ProductListComponent
+      }
+    ]
+  },
+  {
+    path: 'shopping',
+    children: [
+      {
+        path: '',
+        component: ShoppingCenterComponent
       }
     ]
   },
