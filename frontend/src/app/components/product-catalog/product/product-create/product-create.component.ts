@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ProductService} from "../product.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UNIT_LIST, UNITS} from "../../../common/unit";
+import {UNIT_LIST, UNITS} from "../../../../common/unit";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Product} from "../product";
 
@@ -51,9 +51,9 @@ export class ProductCreateComponent implements OnInit {
         product.unit = this.form.value.unit.enumValue;
         console.log("this.form.value;", this.form.value);
         if (product.id) {
-            this.productService.update(product).subscribe(() => this.router.navigate(["/products"]));
+            this.productService.update(product).subscribe(() => this.router.navigate(["/secure/products"]));
         } else {
-            this.productService.save(product).subscribe(() => this.router.navigate(["/products"]));
+            this.productService.save(product).subscribe(() => this.router.navigate(["/secure/products"]));
         }
     }
 

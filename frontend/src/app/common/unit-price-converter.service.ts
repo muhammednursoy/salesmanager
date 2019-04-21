@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ProductPrice, SaleRecord} from "../sales/shopping/basket";
+import {ProductPrice, SaleRecord} from "../components/sales/shopping/basket";
 import {UNITS} from "./unit";
 
 @Injectable({

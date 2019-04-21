@@ -3,31 +3,29 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {CategoryCreateComponent} from "./product-catalog/category/category-create/category-create.component";
-import {CategoryEditComponent} from "./product-catalog/category/category-edit/category-edit.component";
-import {CategoryListComponent} from "./product-catalog/category/category-list/category-list.component";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {CsrfTokenInterceptor} from "./interceptor/csrf-token.interceptor";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CookieModule} from "ngx-cookie";
-import {ProductCreateComponent} from "./product-catalog/product/product-create/product-create.component";
-import {ProductListComponent} from "./product-catalog/product/product-list/product-list.component";
+import {ProductCreateComponent} from "./components/product-catalog/product/product-create/product-create.component";
+import {ProductListComponent} from "./components/product-catalog/product/product-list/product-list.component";
 import {DecimalNumberDirective} from "./common/decimal-directive";
 import {EnumConverterPipe} from "./common/enum-converter.pipe";
-import {ShoppingCenterComponent} from "./sales/shopping/shopping-center/shopping-center.component";
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {ShoppingCenterComponent} from "./components/sales/shopping/shopping-center/shopping-center.component";
+import {NgbCollapseModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {LoginComponent} from './components/auth/login/login.component';
+import {HomeComponent} from './components/home/home.component';
+import {CsrfTokenInterceptor} from "./common/csrf-token-interceptor";
 
 @NgModule({
     declarations: [
         AppComponent,
-        CategoryCreateComponent,
-        CategoryEditComponent,
-        CategoryListComponent,
         ProductCreateComponent,
         ProductListComponent,
         DecimalNumberDirective,
         EnumConverterPipe,
         ShoppingCenterComponent,
+        LoginComponent,
+        HomeComponent,
     ],
     imports: [
         BrowserModule,
@@ -36,6 +34,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
         HttpClientModule,
         FormsModule,
         NgbModule,
+        NgbCollapseModule,
         CookieModule.forRoot(),
     ],
     providers: [

@@ -6,7 +6,6 @@ import {CookieService} from "ngx-cookie";
 
 @Injectable()
 export class CsrfTokenInterceptor implements HttpInterceptor {
-  private static readonly CSRF_ERRORS: Array<string> = ["error.invalidCsrf", "error.missingCsrf"];
 
   constructor(private cookie: CookieService) {
   }
@@ -14,14 +13,6 @@ export class CsrfTokenInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError((requestError, retryRequest) => {
       if (!(requestError instanceof HttpErrorResponse && requestError.status == 403)) {
-        return throwError(requestError);
-      }
-
-      if (!(requestError.error && requestError.error.code)) {
-        return throwError(requestError);
-      }
-
-      if (!CsrfTokenInterceptor.CSRF_ERRORS.includes(requestError.error.code)) {
         return throwError(requestError);
       }
 

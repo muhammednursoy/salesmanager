@@ -1,12 +1,12 @@
 import {Component, OnInit} from "@angular/core";
-import {Observable} from "rxjs";
-import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
+import {interval, Observable, of} from "rxjs";
+import {debounceTime, distinctUntilChanged, map, mergeMap, switchMap} from "rxjs/operators";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {PageRequest} from "../../../common/page-request";
+import {PageRequest} from "../../../../common/page-request";
 import {Product} from "../../../product-catalog/product/product";
 import {SaleRecord, ShoppingBasket} from "../basket";
 import {ProductService} from "../../../product-catalog/product/product.service";
-import {UnitPriceConverterService} from "../../../common/unit-price-converter.service";
+import {UnitPriceConverterService} from "../../../../common/unit-price-converter.service";
 import {ShoppingService} from "../shopping.service";
 
 @Component({

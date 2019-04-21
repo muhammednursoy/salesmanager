@@ -1,73 +1,68 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {CategoryCreateComponent} from "./product-catalog/category/category-create/category-create.component";
-import {CategoryEditComponent} from "./product-catalog/category/category-edit/category-edit.component";
-import {CategoryListComponent} from "./product-catalog/category/category-list/category-list.component";
-import {CategoryResolverService} from "./product-catalog/category/category-resolver.service";
-import {ProductCreateComponent} from "./product-catalog/product/product-create/product-create.component";
-import {ProductResolverService} from "./product-catalog/product/product-resolver.service";
-import {ProductListComponent} from "./product-catalog/product/product-list/product-list.component";
-import {ShoppingCenterComponent} from "./sales/shopping/shopping-center/shopping-center.component";
+import {ProductCreateComponent} from "./components/product-catalog/product/product-create/product-create.component";
+import {ProductResolverService} from "./components/product-catalog/product/product-resolver.service";
+import {ProductListComponent} from "./components/product-catalog/product/product-list/product-list.component";
+import {ShoppingCenterComponent} from "./components/sales/shopping/shopping-center/shopping-center.component";
+import {LoginComponent} from "./components/auth/login/login.component";
+import {HomeComponent} from "./components/home/home.component";
+import {AuthGuard} from "./components/auth/auth.guard";
 
 const routes: Routes = [
   {
-    path: 'categories',
-    children: [
-      {
-        path: 'create',
-        component: CategoryCreateComponent
-      },
-      {
-        path: ':id',
-        component: CategoryEditComponent,
-        resolve: {
-          category: CategoryResolverService
-        }
-      },
-      {
-        path: '',
-        component: CategoryListComponent
-      }
-    ]
+    path: 'login',
+    component: LoginComponent
   },
   {
-    path: 'products',
+    path: 'secure',
+    canActivate: [AuthGuard],
+    component: HomeComponent,
     children: [
       {
-        path: 'create',
-        component: ProductCreateComponent
+        path: 'products',
+        children: [
+          {
+            path: 'create',
+            component: ProductCreateComponent
+          },
+          {
+            path: ':id',
+            component: ProductCreateComponent,
+            resolve: {
+              product: ProductResolverService
+            }
+          },
+          {
+            path: '',
+            component: ProductListComponent
+          }
+        ]
       },
       {
-        path: ':id',
-        component: ProductCreateComponent,
-        resolve: {
-          product: ProductResolverService
-        }
+        path: 'shopping',
+        children: [
+          {
+            path: '',
+            component: ShoppingCenterComponent
+          }
+        ]
       },
       {
         path: '',
-        component: ProductListComponent
-      }
-    ]
-  },
-  {
-    path: 'shopping',
-    children: [
-      {
-        path: '',
-        component: ShoppingCenterComponent
+        redirectTo: 'shopping',
+        pathMatch: 'prefix'
       }
     ]
   },
   {
     path: '**',
-    redirectTo: 'products'
+    redirectTo: '/secure/shopping'
   }
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

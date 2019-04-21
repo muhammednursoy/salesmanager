@@ -1,4 +1,4 @@
-import {RestModel} from "../../common/rest-model";
+import {RestModel} from "../../../common/rest-model";
 
 export class Product extends RestModel{
     name: string;

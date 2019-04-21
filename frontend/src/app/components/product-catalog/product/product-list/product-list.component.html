@@ -1,7 +1,7 @@
 <div class="container-fluid mt-3">
   <form class="form-inline" [formGroup]="form">
     <input type="text" formControlName="searchInput" class="form-control m-2" id="searchInput" placeholder="Ürün Ara">
-    <button type="button" class="btn btn-success m-2" routerLink="/products/create">Yeni Ürün Oluştur</button>
+    <button class="btn btn-success m-2" routerLink="./create" type="button">Yeni Ürün Oluştur</button>
   </form>
   <div class="row mt-3">
     <ng-container *ngFor="let product of products$ | async">
@@ -11,7 +11,7 @@
             <h5 class="card-title">{{product.name}}</h5>
             <h6 class="card-subtitle">{{product.unitAmount}} {{product.unit | enums}} / {{product.price}} &#8378;</h6>
             <p class="card-text">{{product.description}}</p>
-            <a [routerLink]="'/products/' + product.id" class="btn btn-primary">Düzenle</a>
+            <a [routerLink]="'/secure/products/' + product.id" class="btn btn-primary">Düzenle</a>
           </div>
           <div class="card-footer">
             <small class="text-muted">Son güncelleme: {{product.updatedAt | date:'medium'}}</small>

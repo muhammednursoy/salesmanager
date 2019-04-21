@@ -1,4 +1,4 @@
-import {RestModel} from "../../common/rest-model";
+import {RestModel} from "../../../common/rest-model";
 import {Product} from "../../product-catalog/product/product";
 
 export class ProductPrice {
