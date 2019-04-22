@@ -11,7 +11,7 @@ import {ProductListComponent} from "./components/product-catalog/product/product
 import {DecimalNumberDirective} from "./common/decimal-directive";
 import {EnumConverterPipe} from "./common/enum-converter.pipe";
 import {ShoppingCenterComponent} from "./components/sales/shopping/shopping-center/shopping-center.component";
-import {NgbCollapseModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbButtonsModule, NgbCollapseModule, NgbModule, NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
 import {LoginComponent} from './components/auth/login/login.component';
 import {HomeComponent} from './components/home/home.component';
 import {CsrfTokenInterceptor} from "./common/csrf-token-interceptor";
@@ -39,6 +39,8 @@ import {BlockUIHttpModule} from "ng-block-ui/http";
         FormsModule,
         NgbModule,
         NgbCollapseModule,
+        NgbButtonsModule,
+        NgbTooltipModule,
         CookieModule.forRoot(),
         BlockUIModule.forRoot(),
         BlockUIHttpModule.forRoot({

@@ -40,14 +40,15 @@ public class ProductController {
 	}
 
 	@GetMapping
-	public Page<Product> searchProducts(String name, Pageable pageable) {
-		LOG.info("searchProducts::name={}, pageable={}",name, pageable);
-		return repository.searchProducts(name, pageable);
+	public Page<Product> searchProducts(String name, Boolean showDisabledProducts, Pageable pageable) {
+		LOG.info("searchProducts::name={}, showDisabledProducts={}, pageable={}",name, showDisabledProducts, pageable);
+		return repository.searchProducts(name, showDisabledProducts, pageable);
 	}
 
 	@PostMapping("create")
 	public long createProduct(@RequestBody Product product) {
 		LOG.info("createProduct::product={}",product);
+		product.setDisabled(Boolean.FALSE);
 		return repository.save(product).getId();
 	}
 
@@ -57,6 +58,18 @@ public class ProductController {
 		Product entity = repository.findById(product.getId()).orElseThrow(ResourceNotFoundException::new);
 		entity.patch(product);
 		repository.save(product);
+	}
+
+	@PostMapping("disable")
+	public void disableProduct(Long id) {
+		LOG.info("disableProduct::id={}",id);
+		repository.disable(id);
+	}
+
+	@PostMapping("enable")
+	public void enableSProduct(Long id) {
+		LOG.info("enableProduct::id={}",id);
+		repository.enable(id);
 	}
 
 }

@@ -54,6 +54,7 @@ public class ShoppingBasketController {
 			record.setSoldProduct(productRepository.findById(record.getSoldProduct().getId()).orElseThrow(ResourceNotFoundException::new));
 			basket.setTotalPrice(basket.getTotalPrice().add(record.getCollectedCash()));
 		});
+		basket.setDisabled(Boolean.FALSE);
 		return repository.save(basket).getId();
 	}
 

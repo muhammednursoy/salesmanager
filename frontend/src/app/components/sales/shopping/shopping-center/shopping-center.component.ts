@@ -37,7 +37,7 @@ export class ShoppingCenterComponent implements OnInit {
         this.products$ = this.form.get("searchInput").valueChanges.pipe(
             debounceTime(SEARCH_DUE_TIME),
             distinctUntilChanged(),
-            switchMap((name: string) => this.productService.searchProducts(name, this.pageRequest)));
+            switchMap((name: string) => this.productService.searchEnabledProducts(name, this.pageRequest)));
     }
 
     addToBasket(product: Product) {

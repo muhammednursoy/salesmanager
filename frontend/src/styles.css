@@ -11,3 +11,8 @@ body {
 .btn-link {
     color: firebrick !important;
 }
+
+
+.app-btn-checkbox.active {
+    background: indianred !important;
+}

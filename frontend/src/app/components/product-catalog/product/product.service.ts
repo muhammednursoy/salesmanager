@@ -29,8 +29,23 @@ export class ProductService {
         return this.http.patch(requestUrl, product);
     }
 
-    searchProducts(name: string, pageRequest: PageRequest): Observable<Product[]> {
+    searchProducts(name: string, showDisabledProducts: string, pageRequest: PageRequest): Observable<Product[]> {
         let requestUrl = `/api/products?page=${pageRequest.page}&size=${pageRequest.size}`;
-        return this.http.get<any>(requestUrl, {params: {name}}).pipe(map(response => response.content))
+        return this.http.get<any>(requestUrl, {params: {name, showDisabledProducts}}).pipe(map(response => response.content))
+    }
+
+    searchEnabledProducts(name: string, pageRequest: PageRequest) {
+        let requestUrl = `/api/products?page=${pageRequest.page}&size=${pageRequest.size}`;
+        return this.http.get<any>(requestUrl, {params: {name, showDisabledProducts: String(false)}}).pipe(map(response => response.content))
+    }
+
+    disableProduct(id: number) {
+        let requestUrl = `/api/products/disable?id=${id}`;
+        return this.http.post(requestUrl, {});
+    }
+
+    enableProduct(id: number) {
+        let requestUrl = `/api/products/enable?id=${id}`;
+        return this.http.post(requestUrl, {});
     }
 }

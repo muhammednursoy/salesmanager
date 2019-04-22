@@ -30,6 +30,7 @@ public class Product extends AbstractEntity {
 	private Category category;
 	@ManyToOne
 	private Supplier supplier;
+	private Boolean disabled = Boolean.FALSE;
 
 	public void patch(Product product) {
 		name = product.getName();

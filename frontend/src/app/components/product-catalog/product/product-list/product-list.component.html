@@ -1,6 +1,18 @@
 <div class="container-fluid mt-3">
   <form class="form-inline" [formGroup]="form">
-    <input type="text" formControlName="searchInput" class="form-control m-2" id="searchInput" placeholder="Ürün Ara">
+    <div class="input-group">
+      <input type="text" formControlName="searchInput" class="form-control" id="searchInput" placeholder="Ürün Ara">
+      <div class="input-group-append">
+        <div class="btn-group btn-group-toggle" [ngbTooltip]="form.controls['showDisabledProducts'].value?'Pasif ürünleri gösterme':'Pasif ürünleri göster'">
+          <label class="btn-primary app-btn-checkbox" ngbButtonLabel>
+            <input type="checkbox" formControlName="showDisabledProducts" ngbButton>
+            <i *ngIf="form.controls['showDisabledProducts'].value"  class="fas fa-times-circle"></i>
+            <i *ngIf="!form.controls['showDisabledProducts'].value" class="fas fa-check-circle"></i>
+
+          </label>
+        </div>
+      </div>
+    </div>
     <button class="btn btn-success m-2" routerLink="./create" type="button">Yeni Ürün Oluştur</button>
   </form>
   <div class="row mt-3">
@@ -11,7 +23,13 @@
             <h5 class="card-title">{{product.name}}</h5>
             <h6 class="card-subtitle">{{product.unitAmount}} {{product.unit | enums}} / {{product.price}} &#8378;</h6>
             <p class="card-text">{{product.description}}</p>
-            <a [routerLink]="'/secure/products/' + product.id" class="btn btn-primary">Düzenle</a>
+            <a [routerLink]="'/secure/products/' + product.id" class="btn btn-primary btn-sm">Düzenle</a>
+            <button *ngIf="product.disabled" class="btn btn-danger btn-sm ml-1" ngbTooltip="Etkinleştir" (click)="enableProduct(product)">
+              <i class="fas fa-times-circle"></i>
+            </button>
+            <button *ngIf="!product.disabled" class="btn btn-success btn-sm ml-1" ngbTooltip="Pasifleştir" (click)="disableProduct(product)">
+              <i class="fas fa-check-circle"></i>
+            </button>
           </div>
           <div class="card-footer">
             <small class="text-muted">Son güncelleme: {{product.updatedAt | date:'medium'}}</small>
