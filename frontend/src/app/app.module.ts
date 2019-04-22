@@ -16,6 +16,8 @@ import {LoginComponent} from './components/auth/login/login.component';
 import {HomeComponent} from './components/home/home.component';
 import {CsrfTokenInterceptor} from "./common/csrf-token-interceptor";
 import {ShoppingHistoryComponent} from "./components/sales/shopping/shopping-history/shopping-history.component";
+import {BlockUIModule} from "ng-block-ui";
+import {BlockUIHttpModule} from "ng-block-ui/http";
 
 @NgModule({
     declarations: [
@@ -38,6 +40,10 @@ import {ShoppingHistoryComponent} from "./components/sales/shopping/shopping-his
         NgbModule,
         NgbCollapseModule,
         CookieModule.forRoot(),
+        BlockUIModule.forRoot(),
+        BlockUIHttpModule.forRoot({
+            requestFilters: [{method: 'GET', url: /api\/.*/}]
+        }),
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: CsrfTokenInterceptor, multi: true},
