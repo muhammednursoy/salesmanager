@@ -1,7 +1,8 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Inject, LOCALE_ID, OnInit} from "@angular/core";
 import {Page, PageRequest} from "../../../../common/page-request";
 import {ShoppingService} from "../shopping.service";
 import {ShoppingBasket} from "../basket";
+import {BasketService} from "../basket.service";
 
 @Component({
     selector: 'app-shopping-history',
@@ -11,7 +12,9 @@ export class ShoppingHistoryComponent implements OnInit {
     pageRequest: PageRequest = {page: 0, size: 10, sort: "createdAt", dir: "desc"};
     shoppingHistory: ShoppingBasket[] = [];
 
-    constructor(public shoppingService: ShoppingService) {
+    constructor(public shoppingService: ShoppingService,
+                public basketService: BasketService,
+                @Inject(LOCALE_ID) private locale: string) {
 
     }
 
@@ -22,5 +25,15 @@ export class ShoppingHistoryComponent implements OnInit {
             });
     }
 
+    replaceBasket(basket: ShoppingBasket) {
+        this.basketService.replaceBasket(basket);
+    }
 
+    disableBasket(basket: ShoppingBasket) {
+        this.shoppingService.disableBasket(basket.id).subscribe(() => basket.disabled = true);
+    }
+
+    enableBasket(basket: ShoppingBasket) {
+        this.shoppingService.enableBasket(basket.id).subscribe(() => basket.disabled = false);
+    }
 }

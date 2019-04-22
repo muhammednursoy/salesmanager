@@ -57,4 +57,16 @@ public class ShoppingBasketController {
 		return repository.save(basket).getId();
 	}
 
+	@PostMapping("disable")
+	public void disableShoppingBasket(Long id) {
+		LOG.info("disableShoppingBasket::id={}",id);
+		repository.disableBasket(id);
+	}
+
+	@PostMapping("enable")
+	public void enableShoppingBasket(Long id) {
+		LOG.info("enableShoppingBasket::id={}",id);
+		repository.enableBasket(id);
+	}
+
 }

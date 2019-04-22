@@ -5,6 +5,9 @@
         <div class="card-body">
           <h5 class="card-title">Sepet</h5>
           <h6 class="card-subtitle">Toplam Tutar: {{totalPrice}}&#8378;</h6>
+          <div *ngIf="submitted && isBasketInvalid()" class="alert alert-danger mt-2" role="alert">
+            Tüm ürünlerin miktarını girmelisiniz
+          </div>
           <ul class="list-group list-group-flush mt-2">
             <li *ngFor="let item of basket.saleRecords" class="list-group-item">
               <a class="btn" (click)="deleteFromBasket(item)">
@@ -44,7 +47,7 @@
         </div>
         <div class="card-footer">
           <button type="button" class="btn btn-outline-primary" [disabled]="basket.saleRecords.length < 1" (click)="saveSaleRecord()">{{totalPrice ? totalPrice + '&#8378; ' : ''}}Satış Yap!</button>
-          <button type="button" class="btn btn-outline-danger ml-3 float-right" [disabled]="basket.saleRecords.length < 1" (click)="basket.saleRecords=[]">Sepeti Temizle</button>
+          <button type="button" class="btn btn-outline-danger ml-3 float-right" [disabled]="basket.saleRecords.length < 1" (click)="resetBasket()">Sepeti Temizle</button>
         </div>
       </div>
     </div>
@@ -67,8 +70,7 @@
                 <h5 class="card-title">{{product.name}}</h5>
                 <h6 class="card-subtitle">{{product.unitAmount}} {{product.unit | enums}} / {{product.price}} &#8378;</h6>
                 <p class="card-text">{{product.description}}</p>
-                <button *ngIf="!isProductInBasket(product)" type="button" class="btn btn-primary" (click)="addToBasket(product)">Sepete Ekle</button>
-                <span *ngIf="isProductInBasket(product)" class="font-italic">Ürün Sepette</span>
+                <button type="button" class="btn btn-primary" (click)="addToBasket(product)">Sepete Ekle</button>
               </div>
             </div>
           </div>

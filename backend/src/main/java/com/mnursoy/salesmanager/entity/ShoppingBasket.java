@@ -26,5 +26,6 @@ public class ShoppingBasket extends AbstractEntity {
 	@ManyToOne
 	private Customer customer;
 	private BigDecimal totalPrice = new BigDecimal(0);
+	private Boolean disabled = Boolean.FALSE;
 
 }

@@ -21,4 +21,14 @@ export class ShoppingService {
         let requestUrl = `/api/baskets/history?page=${pageRequest.page}&size=${pageRequest.size}&sort=${pageRequest.sort},${pageRequest.dir}`;
         return this.http.get(requestUrl)
     }
+
+    disableBasket(id: number) {
+        let requestUrl = `/api/baskets/disable?id=${id}`;
+        return this.http.post(requestUrl, {});
+    }
+
+    enableBasket(id: number) {
+        let requestUrl = `/api/baskets/enable?id=${id}`;
+        return this.http.post(requestUrl, {});
+    }
 }

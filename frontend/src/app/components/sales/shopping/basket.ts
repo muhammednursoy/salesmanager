@@ -28,5 +28,6 @@ export class Customer extends RestModel {
 export class ShoppingBasket extends RestModel {
     saleRecords: SaleRecord[] = [];
     customer: Customer;
-    totalPrice: number;
+    totalPrice: number = 0;
+    disabled: boolean = false;
 }

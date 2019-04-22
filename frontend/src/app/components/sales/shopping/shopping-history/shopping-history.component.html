@@ -1,11 +1,23 @@
 <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-  <ngb-panel *ngFor="let basket of shoppingHistory" [title]="(basket.createdAt | date:'HH:mm E  dd LLL') + '&emsp;' + basket.totalPrice + '&#8378;'">
+  <ngb-panel *ngFor="let basket of shoppingHistory">
+    <ng-template ngbPanelHeader let-opened="opened">
+      <div class="d-flex align-items-center justify-content-between">
+        <button class="btn btn-outline-dark" ngbPanelToggle>
+          <i class="fas fa-arrow-down"></i>
+        </button>
+        <h5 class="m-0">{{basket.createdAt | date:'HH:mm E  dd LLL'}} &emsp;&emsp; {{'Tutar: ' + basket.totalPrice}}&#8378;</h5>
+        <div class="btn-group">
+          <button class="btn btn-outline-success btn-sm float-right" (click)="replaceBasket(basket)">Sepete Koy</button>
+          <button *ngIf="!basket.disabled" class="btn btn-outline-danger btn-sm float-right" (click)="disableBasket(basket)">İptal Et</button>
+          <button *ngIf="basket.disabled" class="btn btn-outline-primary btn-sm float-right" (click)="enableBasket(basket)">Aktifleştir</button>
+        </div>
+      </div>
+    </ng-template>
     <ng-template ngbPanelContent>
       <ul class="list-group list-group-flush mt-2">
         <li *ngFor="let item of basket.saleRecords" class="list-group-item">
           {{item.soldProduct.name}}: {{item.amount}} {{item.unit | enums}} / {{item.collectedCash}}&#8378;
           <small class="text-muted">{{item.soldProduct.unitAmount}}{{item.soldProduct.unit|enums}}/{{item.soldProduct.price}}&#8378;</small>
-
         </li>
       </ul>
     </ng-template>
