@@ -16,19 +16,16 @@ export class ProductService {
 
     save(product: Product) {
         let requestUrl = `/api/products/create`;
-        console.log("saveProduct", product);
         return this.http.post(requestUrl, product)
     }
 
     getProduct(id: string): Observable<Product> {
         let requestUrl = `/api/products/${id}`;
-        console.log("getCategory",requestUrl);
         return this.http.get<Product>(requestUrl);
     }
 
     update(product: Product) {
         let requestUrl = `/api/products/update`;
-        console.log("patchurl",requestUrl);
         return this.http.patch(requestUrl, product);
     }
 

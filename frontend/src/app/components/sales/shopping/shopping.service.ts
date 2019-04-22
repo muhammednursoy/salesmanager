@@ -13,7 +13,6 @@ export class ShoppingService {
 
     save(basket: ShoppingBasket) {
         let requestUrl = `/api/baskets/create`;
-        console.log("saveBasket", basket);
         return this.http.post(requestUrl, basket)
     }
 }

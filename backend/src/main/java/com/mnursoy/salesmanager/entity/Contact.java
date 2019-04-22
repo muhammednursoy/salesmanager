@@ -4,11 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author Muhammed Nursoy
  *
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 public class Contact extends AbstractEntity {

@@ -10,11 +10,13 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.mnursoy.salesmanager.entity.model.ProductPrice;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author Muhammed Nursoy
  *
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 public class SaleRecord extends AbstractEntity {

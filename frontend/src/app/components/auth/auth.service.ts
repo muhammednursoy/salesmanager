@@ -14,7 +14,6 @@ export class AuthService {
     }
 
     login(username: string, password: string): Observable<any> {
-        console.log("userpass", username, password);
         return this.http.post(`/api/login?username=${username}&password=${password}`, {}).pipe(tap(() => this.isLoggedIn = true));
     }
 

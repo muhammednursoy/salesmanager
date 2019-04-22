@@ -8,12 +8,14 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.mnursoy.salesmanager.entity.model.ProductPrice;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
  * @author Muhammed Nursoy
  *
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ToString(callSuper = true)
 @Entity

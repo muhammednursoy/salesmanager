@@ -9,11 +9,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author Muhammed Nursoy
  *
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 public class ShoppingBasket extends AbstractEntity {

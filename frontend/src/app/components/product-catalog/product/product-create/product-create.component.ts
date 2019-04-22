@@ -34,7 +34,6 @@ export class ProductCreateComponent implements OnInit {
         if (product) {
             this.isUpdate = true;
             this.form.patchValue(product);
-            console.log("product", product);
             this.controls.unit.setValue(UNITS[product.unit])
         }
 
@@ -49,7 +48,6 @@ export class ProductCreateComponent implements OnInit {
 
         let product: Product = this.form.value;
         product.unit = this.form.value.unit.enumValue;
-        console.log("this.form.value;", this.form.value);
         if (product.id) {
             this.productService.update(product).subscribe(() => this.router.navigate(["/secure/products"]));
         } else {

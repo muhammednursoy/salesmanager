@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
     selector: 'app-login',
@@ -10,6 +11,8 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
     form: FormGroup;
+    error: string;
+    private USERNAME_PASSWORD_ERROR = "Kullanıcı adı veya parola hatalı!";
 
     constructor(
         public router: Router,
@@ -25,14 +28,23 @@ export class LoginComponent implements OnInit {
         })
     }
 
+
     login() {
-        console.log("login")
-        this.authService.login(this.form.get("username").value, this.form.get("password").value).subscribe(() => this.onLoginSuccess(), console.log)
+        this.authService.login(this.form.get("username").value, this.form.get("password").value)
+            .subscribe(
+                () => this.onLoginSuccess(),
+                errorResponse => this.onLoginError(errorResponse)
+                )
     }
 
     private onLoginSuccess() {
-        console.log("redirect")
         this.router.navigate(["/secure/shopping"]);
+    }
+
+    private onLoginError(errorResponse) {
+        if (errorResponse instanceof HttpErrorResponse && errorResponse.status == 401) {
+            this.error = this.USERNAME_PASSWORD_ERROR
+        }
     }
 
 
