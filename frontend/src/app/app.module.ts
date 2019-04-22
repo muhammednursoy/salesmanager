@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpRequest} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CookieModule} from "ngx-cookie";
 import {ProductCreateComponent} from "./components/product-catalog/product/product-create/product-create.component";
@@ -18,6 +18,10 @@ import {CsrfTokenInterceptor} from "./common/csrf-token-interceptor";
 import {ShoppingHistoryComponent} from "./components/sales/shopping/shopping-history/shopping-history.component";
 import {BlockUIModule} from "ng-block-ui";
 import {BlockUIHttpModule} from "ng-block-ui/http";
+
+export function filterGET(req: HttpRequest<any>) {
+    return req.method == "GET" && /^\/api\/.*/.test(req.url);
+}
 
 @NgModule({
     declarations: [
@@ -44,7 +48,7 @@ import {BlockUIHttpModule} from "ng-block-ui/http";
         CookieModule.forRoot(),
         BlockUIModule.forRoot(),
         BlockUIHttpModule.forRoot({
-            requestFilters: [{method: 'GET', url: /api\/.*/}]
+            requestFilters: [filterGET]
         }),
     ],
     providers: [
