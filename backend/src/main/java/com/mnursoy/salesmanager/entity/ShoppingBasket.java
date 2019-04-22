@@ -1,5 +1,6 @@
 package com.mnursoy.salesmanager.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
@@ -24,5 +25,6 @@ public class ShoppingBasket extends AbstractEntity {
 	private Set<SaleRecord> saleRecords;
 	@ManyToOne
 	private Customer customer;
+	private BigDecimal totalPrice = new BigDecimal(0);
 
 }

@@ -6,3 +6,8 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-color: aliceblue!important;
 }
+
+
+.btn-link {
+    color: firebrick !important;
+}

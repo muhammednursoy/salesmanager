@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import {interval, Observable, of} from "rxjs";
-import {debounceTime, distinctUntilChanged, map, mergeMap, switchMap} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {PageRequest} from "../../../../common/page-request";
+import {PageRequest, SEARCH_DUE_TIME} from "../../../../common/page-request";
 import {Product} from "../../../product-catalog/product/product";
 import {SaleRecord, ShoppingBasket} from "../basket";
 import {ProductService} from "../../../product-catalog/product/product.service";
@@ -10,14 +10,16 @@ import {UnitPriceConverterService} from "../../../../common/unit-price-converter
 import {ShoppingService} from "../shopping.service";
 
 @Component({
-    selector: 'app-category-list',
+    selector: 'app-shopping-center',
     templateUrl: './shopping-center.component.html',
+    styles: ['.btn-link { color: brown !important;}']
 })
 export class ShoppingCenterComponent implements OnInit {
     pageRequest: PageRequest = {page: 0, size: 10};
     products$: Observable<Array<Product>>;
     form: FormGroup;
     basket: ShoppingBasket = new ShoppingBasket();
+    showShoppingHistory: boolean;
 
     constructor(public productService: ProductService,
                 public shoppingService: ShoppingService,
@@ -29,7 +31,7 @@ export class ShoppingCenterComponent implements OnInit {
     ngOnInit(): void {
         this.form = this.fb.group({searchInput: ""});
         this.products$ = this.form.get("searchInput").valueChanges.pipe(
-            debounceTime(100),
+            debounceTime(SEARCH_DUE_TIME),
             distinctUntilChanged(),
             switchMap((name: string) => this.productService.searchProducts(name, this.pageRequest)));
     }
@@ -82,6 +84,10 @@ export class ShoppingCenterComponent implements OnInit {
             this.basket = new ShoppingBasket();
         });
 
+    }
+
+    openShoppingHistory() {
+        this.showShoppingHistory = true;
     }
 
     private validateBasket() {

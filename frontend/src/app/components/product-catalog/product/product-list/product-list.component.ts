@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ProductService} from "../product.service";
 import {Product} from "../product";
-import {PageRequest} from "../../../../common/page-request";
+import {PageRequest, SEARCH_DUE_TIME} from "../../../../common/page-request";
 import {merge, Observable, of} from "rxjs";
 import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -22,7 +22,7 @@ export class ProductListComponent implements OnInit {
     ngOnInit(): void {
         this.form = this.fb.group({searchInput: ""});
         this.products$ = merge(of(""), this.form.get("searchInput").valueChanges).pipe(
-            debounceTime(100),
+            debounceTime(SEARCH_DUE_TIME),
             distinctUntilChanged(),
             switchMap((name: string) => this.productService.searchProducts(name, this.pageRequest)));
     }

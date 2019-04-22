@@ -15,6 +15,7 @@ import {NgbCollapseModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {LoginComponent} from './components/auth/login/login.component';
 import {HomeComponent} from './components/home/home.component';
 import {CsrfTokenInterceptor} from "./common/csrf-token-interceptor";
+import {ShoppingHistoryComponent} from "./components/sales/shopping/shopping-history/shopping-history.component";
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import {CsrfTokenInterceptor} from "./common/csrf-token-interceptor";
         ShoppingCenterComponent,
         LoginComponent,
         HomeComponent,
+        ShoppingHistoryComponent,
     ],
     imports: [
         BrowserModule,
