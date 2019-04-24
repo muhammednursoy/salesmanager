@@ -1,6 +1,6 @@
 export class RestModel {
     id: number;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: number;
+    updatedAt: number;
 
 }

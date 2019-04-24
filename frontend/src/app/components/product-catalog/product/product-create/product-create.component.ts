@@ -14,6 +14,7 @@ export class ProductCreateComponent implements OnInit {
     units = UNIT_LIST;
     submitted: boolean;
     isUpdate: boolean;
+    product: Product;
 
     constructor(
         public productService: ProductService,
@@ -33,6 +34,7 @@ export class ProductCreateComponent implements OnInit {
         let product: Product = this.route.snapshot.data.product;
         if (product) {
             this.isUpdate = true;
+            this.product = product;
             this.form.patchValue(product);
             this.controls.unit.setValue(UNITS[product.unit])
         }

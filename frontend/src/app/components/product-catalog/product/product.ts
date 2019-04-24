@@ -8,3 +8,11 @@ export class Product extends RestModel{
     description: string;
     disabled: boolean
 }
+
+export class PriceRecord extends RestModel{
+    product;
+    price: number;
+    unit: string;
+    baseAmount: number;
+    unitPrice;
+}

@@ -1,5 +1,9 @@
 package com.mnursoy.salesmanager.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mnursoy.salesmanager.controller.Request.PriceHistoryRequest;
 import com.mnursoy.salesmanager.entity.PriceRecord;
 import com.mnursoy.salesmanager.entity.Product;
 import com.mnursoy.salesmanager.exception.ResourceNotFoundException;
@@ -80,6 +85,24 @@ public class ProductController {
 	public void enableSProduct(Long id) {
 		LOG.info("enableProduct::id={}",id);
 		repository.enable(id);
+	}
+
+	@GetMapping("price-history")
+	public List<PriceRecord> getPriceHistory(PriceHistoryRequest priceHistoryRequest) {
+		LOG.info("getPriceHistory::priceHistoryRequest={}", priceHistoryRequest);
+		Calendar endDateCal = priceHistoryRequest.getEndDate();
+		Date endDate = null;
+		if (endDateCal != null) {
+			endDateCal.add(Calendar.DAY_OF_MONTH, 1);
+			endDate = new Date(endDateCal.getTimeInMillis());
+		}
+		Calendar startDateCal = priceHistoryRequest.getStartDate();
+		Date startDate = null;
+		if (startDateCal != null) {
+			startDate = new Date(startDateCal.getTimeInMillis());
+		}
+
+		return productPriceRecordRepository.searchPriceRecord(priceHistoryRequest.getProductId(), startDate, endDate);
 	}
 
 	private boolean isProductPriceChanged(Product product, Product entity) {
