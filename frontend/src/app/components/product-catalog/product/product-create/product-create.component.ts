@@ -62,7 +62,7 @@ export class ProductCreateComponent implements OnInit {
                 name: ["", [Validators.required]],
                 price: ["", [Validators.required]],
                 unit: [UNITS.KG, [Validators.required]],
-                unitAmount: ["", [Validators.required]],
+                baseAmount: ["", [Validators.required]],
                 description: ["", []]
             }
         )

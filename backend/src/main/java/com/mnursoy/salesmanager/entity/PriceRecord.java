@@ -1,5 +1,7 @@
 package com.mnursoy.salesmanager.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -20,5 +22,6 @@ public class PriceRecord extends AbstractEntity {
 	@ManyToOne
 	private Product product;
 	private ProductPrice price;
+	private BigDecimal unitPrice;
 
 }

@@ -13,10 +13,10 @@
               <a class="btn" (click)="deleteFromBasket(item)">
                 <i class="fas fa-times"></i>
               </a>
-              {{item.soldProduct.name}}: {{item.amount}} {{item.unit | enums}} / {{item.collectedCash}}&#8378;
-              <small class="text-muted">{{item.soldProduct.unitAmount}}{{item.soldProduct.unit|enums}}/{{item.soldProduct.price}}&#8378;</small>
+              {{item.soldProduct.name}}: {{item.saleAmount}} {{item.unit | enums}} / {{item.collectedCash}}&#8378;
+              <small class="text-muted">{{item.soldProduct.baseAmount}}{{item.soldProduct.unit|enums}}/{{item.soldProduct.price}}&#8378;</small>
               <div class="input-group">
-                <input type="text" appDecimal [(ngModel)]="item.amount" (keyup)="priceConverter.calculatePrice(item)">
+                <input type="text" appDecimal [(ngModel)]="item.saleAmount" (keyup)="priceConverter.calculatePrice(item)">
                 <div class="input-group-append">
                   <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="item.unit" (change)="priceConverter.calculatePrice(item)">
                     <label *ngIf="item.soldProduct.unit == 'KG' || item.soldProduct.unit == 'GR'" ngbButtonLabel class="btn-primary">
@@ -65,14 +65,15 @@
       <div [hidden]="showShoppingHistory" class="row mt-3">
         <ng-container *ngFor="let product of products$ | async">
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-            <div class="card border-info m-2">
+            <a (click)="addToBasket(product)" class="card border-info m-2">
               <div class="card-body">
                 <h5 class="card-title">{{product.name}}</h5>
-                <h6 class="card-subtitle">{{product.unitAmount}} {{product.unit | enums}} / {{product.price}} &#8378;</h6>
+                <h6 class="card-subtitle">{{product.baseAmount}} {{product.unit | enums}} / {{product.price}} &#8378;</h6>
                 <p class="card-text">{{product.description}}</p>
-                <button type="button" class="btn btn-primary" (click)="addToBasket(product)">Sepete Ekle</button>
+                <!--<button type="button" class="btn btn-primary" (click)="addToBasket(product)">Sepete Ekle</button>-->
+                <span *ngIf="isProductInBasket(product)" class="font-italic">Ürün Sepette</span>
               </div>
-            </div>
+            </a>
           </div>
         </ng-container>
       </div>

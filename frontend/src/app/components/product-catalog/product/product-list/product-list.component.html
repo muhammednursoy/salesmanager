@@ -21,7 +21,7 @@
         <div class="card text-center m-2">
           <div class="card-body">
             <h5 class="card-title">{{product.name}}</h5>
-            <h6 class="card-subtitle">{{product.unitAmount}} {{product.unit | enums}} / {{product.price}} &#8378;</h6>
+            <h6 class="card-subtitle">{{product.baseAmount}} {{product.unit | enums}} / {{product.price}} &#8378;</h6>
             <p class="card-text">{{product.description}}</p>
             <a [routerLink]="'/secure/products/' + product.id" class="btn btn-primary btn-sm">Düzenle</a>
             <button *ngIf="product.disabled" class="btn btn-danger btn-sm ml-1" ngbTooltip="Etkinleştir" (click)="enableProduct(product)">

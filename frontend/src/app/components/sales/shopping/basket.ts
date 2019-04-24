@@ -4,19 +4,19 @@ import {Product} from "../../product-catalog/product/product";
 export class ProductPrice {
     price: number;
     unit: string;
-    unitAmount: number;
+    baseAmount: number;
 }
 
 export class SaleRecord extends RestModel {
-    amount: number;
+    saleAmount: number;
     soldProduct: Product;
     collectedCash: number = 0;
     price: number;
     unit: string;
-    unitAmount: number;
+    baseAmount: number;
 
     get getPrice(): ProductPrice {
-        return {price: this.price, unit: this.unit, unitAmount: this.unitAmount}
+        return {price: this.price, unit: this.unit, baseAmount: this.baseAmount}
     }
 
 }

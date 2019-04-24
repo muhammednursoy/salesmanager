@@ -80,4 +80,8 @@ export class ShoppingCenterComponent implements OnInit {
     resetBasket() {
         this.basketService.reset();
     }
+
+    isProductInBasket(product: Product) {
+        return this.basketService.isProductInBasket(product);
+    }
 }

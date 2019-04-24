@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.mnursoy.salesmanager.entity.model.ProductPrice;
@@ -21,8 +21,8 @@ import lombok.EqualsAndHashCode;
 @Entity
 public class SaleRecord extends AbstractEntity {
 
-	private BigDecimal amount;
-	@OneToOne
+	private BigDecimal saleAmount;
+	@ManyToOne
 	private Product soldProduct;
 	private BigDecimal collectedCash;
 	@JsonUnwrapped

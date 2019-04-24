@@ -27,7 +27,7 @@ export class BasketService {
         saleRecord = new SaleRecord();
         saleRecord.soldProduct = product;
         saleRecord.unit = product.unit;
-        saleRecord.unitAmount = product.unitAmount;
+        saleRecord.baseAmount = product.baseAmount;
         saleRecord.price = product.price;
         this.basket.saleRecords.push(saleRecord)
 
@@ -72,7 +72,7 @@ export class BasketService {
     validateBasket() {
         let valid = true;
         this.basket.saleRecords.forEach(record => {
-            if (record.amount) {
+            if (record.saleAmount) {
                 return;
             }
             valid = false;

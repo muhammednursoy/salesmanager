@@ -4,7 +4,7 @@ export class Product extends RestModel{
     name: string;
     price: number;
     unit: string;
-    unitAmount: number;
+    baseAmount: number;
     description: string;
     disabled: boolean
 }

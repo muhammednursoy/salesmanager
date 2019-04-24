@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mnursoy.salesmanager.entity.PriceRecord;
 import com.mnursoy.salesmanager.entity.Product;
 import com.mnursoy.salesmanager.exception.ResourceNotFoundException;
+import com.mnursoy.salesmanager.repository.ProductPriceRecordRepository;
 import com.mnursoy.salesmanager.repository.ProductRepository;
 
 /**
@@ -27,10 +29,12 @@ public class ProductController {
 	private static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
 
 	private final ProductRepository repository;
+	private final ProductPriceRecordRepository productPriceRecordRepository;
 
 	@Autowired
-	public ProductController(ProductRepository repository) {
+	public ProductController(ProductRepository repository, ProductPriceRecordRepository productPriceRecordRepository) {
 		this.repository = repository;
+		this.productPriceRecordRepository = productPriceRecordRepository;
 	}
 
 	@GetMapping("{id}")
@@ -49,15 +53,21 @@ public class ProductController {
 	public long createProduct(@RequestBody Product product) {
 		LOG.info("createProduct::product={}",product);
 		product.setDisabled(Boolean.FALSE);
-		return repository.save(product).getId();
+		Product entity = repository.save(product);
+		recordProductPrice(entity);
+		return entity.getId();
 	}
 
 	@PatchMapping("update")
 	public void updateProduct(@RequestBody Product product) {
 		LOG.info("updateProduct::product={}",product);
 		Product entity = repository.findById(product.getId()).orElseThrow(ResourceNotFoundException::new);
+		boolean productPriceChanged = isProductPriceChanged(product, entity);
 		entity.patch(product);
-		repository.save(product);
+		entity = repository.save(entity);
+		if (productPriceChanged) {
+			recordProductPrice(entity);
+		}
 	}
 
 	@PostMapping("disable")
@@ -72,4 +82,15 @@ public class ProductController {
 		repository.enable(id);
 	}
 
+	private boolean isProductPriceChanged(Product product, Product entity) {
+		return !product.getPrice().getUnitPrice().equals(entity.getPrice().getUnitPrice());
+	}
+
+	private void recordProductPrice(Product product) {
+		PriceRecord priceRecord = new PriceRecord();
+		priceRecord.setPrice(product.getPrice());
+		priceRecord.setProduct(product);
+		priceRecord.setUnitPrice(product.getPrice().getUnitPrice());
+		productPriceRecordRepository.save(priceRecord);
+	}
 }

@@ -8,7 +8,7 @@ import {UNITS} from "./unit";
 export class UnitPriceConverterService {
 
     public calculatePrice(saleRecord: SaleRecord) {
-        saleRecord.collectedCash = this.getPrice(saleRecord.amount, saleRecord.unit, saleRecord.soldProduct);
+        saleRecord.collectedCash = this.getPrice(saleRecord.saleAmount, saleRecord.unit, saleRecord.soldProduct);
     }
 
     public getPrice(amount: number, unit: string, productPrice: ProductPrice) {
@@ -16,7 +16,7 @@ export class UnitPriceConverterService {
         if (basePrice == null) {
             throw new Error("basePrice cannot be null !!")
         }
-        let result = basePrice.price * (amount / basePrice.unitAmount);
+        let result = basePrice.price * (amount / basePrice.baseAmount);
         return parseFloat(result.toFixed(2));
     }
 
@@ -31,7 +31,7 @@ export class UnitPriceConverterService {
             }
             if (productPrice.unit == UNITS.GR.enumValue) {
                 let basePrice = Object.assign({}, productPrice);
-                basePrice.unitAmount = basePrice.unitAmount / 1000;
+                basePrice.baseAmount = basePrice.baseAmount / 1000;
                 return basePrice;
             }
         }
@@ -39,7 +39,7 @@ export class UnitPriceConverterService {
         if (unit == UNITS.GR.enumValue) {
             if (productPrice.unit == UNITS.KG.enumValue) {
                 let basePrice = Object.assign({}, productPrice);
-                basePrice.unitAmount = basePrice.unitAmount * 1000;
+                basePrice.baseAmount = basePrice.baseAmount * 1000;
                 return basePrice;
             }
             if (productPrice.unit == UNITS.GR.enumValue) {
@@ -53,7 +53,7 @@ export class UnitPriceConverterService {
             }
             if (productPrice.unit == UNITS.ML.enumValue) {
                 let basePrice = Object.assign({}, productPrice);
-                basePrice.unitAmount = basePrice.unitAmount / 1000;
+                basePrice.baseAmount = basePrice.baseAmount / 1000;
                 return basePrice;
             }
         }
@@ -61,7 +61,7 @@ export class UnitPriceConverterService {
         if (unit == UNITS.ML.enumValue) {
             if (productPrice.unit == UNITS.LT.enumValue) {
                 let basePrice = Object.assign({}, productPrice);
-                basePrice.unitAmount = basePrice.unitAmount * 1000;
+                basePrice.baseAmount = basePrice.baseAmount * 1000;
                 return basePrice;
             }
             if (productPrice.unit == UNITS.ML.enumValue) {

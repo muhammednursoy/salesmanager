@@ -28,15 +28,15 @@
           <div class="form-group">
             <label for="unit">Miktar</label>
             <div class="input-group">
-              <input formControlName="unitAmount" type="text" appDecimal class="form-control" id="unit" placeholder="örn. 1.5 kg, 100 gram, 10 tane" maxlength="15" [ngClass]="{ 'is-invalid': submitted && controls.unitAmount.errors }" />
+              <input formControlName="baseAmount" type="text" appDecimal class="form-control" id="unit" placeholder="örn. 1.5 kg, 100 gram, 10 tane" maxlength="15" [ngClass]="{ 'is-invalid': submitted && controls.baseAmount.errors }" />
               <div class="input-group-append">
                 <select formControlName="unit" class="form-control">
                   <option *ngFor="let unit of units" [ngValue]="unit">{{unit.name}}</option>
                 </select>
               </div>
-              <div *ngIf="submitted && controls.unitAmount.errors" class="invalid-feedback">
-                <div *ngIf="controls.unitAmount.errors.required">Zorunlu alan</div>
-                <div *ngIf="controls.unitAmount.errors.pattern">Miktar sayısal bir değer olmalı</div>
+              <div *ngIf="submitted && controls.baseAmount.errors" class="invalid-feedback">
+                <div *ngIf="controls.baseAmount.errors.required">Zorunlu alan</div>
+                <div *ngIf="controls.baseAmount.errors.pattern">Miktar sayısal bir değer olmalı</div>
               </div>
             </div>
           </div>

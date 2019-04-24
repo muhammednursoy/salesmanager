@@ -16,8 +16,8 @@
     <ng-template ngbPanelContent>
       <ul class="list-group list-group-flush mt-2">
         <li *ngFor="let item of basket.saleRecords" class="list-group-item">
-          {{item.soldProduct.name}}: {{item.amount}} {{item.unit | enums}} / {{item.collectedCash}}&#8378;
-          <small class="text-muted">{{item.soldProduct.unitAmount}}{{item.soldProduct.unit|enums}}/{{item.soldProduct.price}}&#8378;</small>
+          {{item.soldProduct.name}}: {{item.saleAmount}} {{item.unit | enums}} / {{item.collectedCash}}&#8378;
+          <small class="text-muted">{{item.soldProduct.baseAmount}}{{item.soldProduct.unit|enums}}/{{item.soldProduct.price}}&#8378;</small>
         </li>
       </ul>
     </ng-template>
