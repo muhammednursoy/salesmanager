@@ -11,7 +11,7 @@ import {BasketService} from "../basket.service";
 export class ShoppingHistoryComponent implements OnInit {
     pageRequest: PageRequest = {page: 0, size: 10, sort: "createdAt", dir: "desc"};
     shoppingHistory: ShoppingBasket[] = [];
-    private lastHistoryPage: boolean;
+    lastHistoryPage: boolean;
 
     constructor(public shoppingService: ShoppingService,
                 public basketService: BasketService,

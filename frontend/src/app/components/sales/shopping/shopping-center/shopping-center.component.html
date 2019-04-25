@@ -62,8 +62,12 @@
           <input type="text" formControlName="searchInput" class="form-control" placeholder="Ürün Ara">
         </div>
       </form>
-      <div [hidden]="showShoppingHistory" class="row mt-3">
-        <ng-container *ngFor="let product of products$ | async">
+      <div [hidden]="showShoppingHistory" class="row mt-3 search-results"
+           infinite-scroll
+           [infiniteScrollDistance]="scrollDistance"
+           [infiniteScrollThrottle]="throttle"
+           (scrolled)="onScrollDown()">
+        <ng-container *ngFor="let product of products">
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <a (click)="addToBasket(product)" class="card border-info m-2">
               <div class="card-body">
