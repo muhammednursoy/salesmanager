@@ -11,6 +11,7 @@ import {BasketService} from "../basket.service";
 export class ShoppingHistoryComponent implements OnInit {
     pageRequest: PageRequest = {page: 0, size: 10, sort: "createdAt", dir: "desc"};
     shoppingHistory: ShoppingBasket[] = [];
+    private lastHistoryPage: boolean;
 
     constructor(public shoppingService: ShoppingService,
                 public basketService: BasketService,
@@ -35,5 +36,18 @@ export class ShoppingHistoryComponent implements OnInit {
 
     enableBasket(basket: ShoppingBasket) {
         this.shoppingService.enableBasket(basket.id).subscribe(() => basket.disabled = false);
+    }
+
+    loadRecords() {
+        if (this.lastHistoryPage) {
+            return;
+        }
+        this.pageRequest.page += 1;
+        this.shoppingService.getShoppingHistory(this.pageRequest)
+            .subscribe((page: Page) => {
+                console.log("page", page);
+                this.lastHistoryPage = page.last;
+                this.shoppingHistory.push(...page.content);
+            });
     }
 }

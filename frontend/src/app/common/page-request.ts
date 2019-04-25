@@ -11,6 +11,8 @@ export class Page {
     totalElements;
     number;
     size;
+    last;
+    first;
 }
 
 
