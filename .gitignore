@@ -20,3 +20,4 @@ build/
 cudb/application.log
 
 .DS_Store
+.scripts
