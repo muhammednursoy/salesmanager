@@ -1,4 +1,5 @@
 import {RestModel} from "../../../common/rest-model";
+import {Supplier} from "../supplier/supplier";
 
 export class Product extends RestModel{
     name: string;
@@ -6,7 +7,8 @@ export class Product extends RestModel{
     unit: string;
     baseAmount: number;
     description: string;
-    disabled: boolean
+    disabled: boolean;
+    supplier: Supplier;
 }
 
 export class PriceRecord extends RestModel{

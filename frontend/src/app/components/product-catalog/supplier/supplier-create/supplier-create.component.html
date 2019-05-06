@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row mt-5">
+    <div class="offset-3 col-md-4">
+      <div class="jumbotron">
+        <form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
+          <div class="form-group">
+            <label for="nameInput">Üretici İsmi</label>
+            <input formControlName="name" type="text" class="form-control" id="nameInput" maxlength="120" [ngClass]="{ 'is-invalid': submitted && controls.name.errors }" />
+            <div *ngIf="submitted && controls.name.errors" class="invalid-feedback">
+              <div *ngIf="controls.name.errors.required">Zorunlu alan</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="descriptionInput">Üretici Bilgisi</label>
+            <textarea formControlName="description" class="form-control" id="descriptionInput" maxlength="800"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="nameInput">Email</label>
+            <input formControlName="email" type="text" class="form-control" id="emailInput" maxlength="120" />
+          </div>
+          <div class="form-group">
+            <label for="nameInput">Telefon</label>
+            <input formControlName="phone" type="text" class="form-control" id="phoneInput" maxlength="120" />
+          </div>
+          <div class="form-group">
+            <label for="nameInput">Adres</label>
+            <input formControlName="address" type="text" class="form-control" id="addressInput" maxlength="120" />
+          </div>
+          <button *ngIf="!isUpdate" type="submit" class="btn btn-success" >Ürün Oluştur</button>
+          <button *ngIf="isUpdate" type="submit" class="btn btn-success" >Ürünü Güncelle</button>
+          <button class="btn btn-warning ml-3" routerLink="/secure/suppliers" type="button">İptal</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

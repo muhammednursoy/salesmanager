@@ -7,6 +7,9 @@ import {ShoppingCenterComponent} from "./components/sales/shopping/shopping-cent
 import {LoginComponent} from "./components/auth/login/login.component";
 import {HomeComponent} from "./components/home/home.component";
 import {AuthGuard} from "./components/auth/auth.guard";
+import {SupplierCreateComponent} from "./components/product-catalog/supplier/supplier-create/supplier-create.component";
+import {SupplierResolverService} from "./components/product-catalog/supplier/supplier-resolver.service";
+import {SupplierListComponent} from "./components/product-catalog/supplier/supplier-list/supplier-list.component";
 
 const routes: Routes = [
   {
@@ -35,6 +38,26 @@ const routes: Routes = [
           {
             path: '',
             component: ProductListComponent
+          }
+        ]
+      },
+      {
+        path: 'suppliers',
+        children: [
+          {
+            path: 'create',
+            component: SupplierCreateComponent
+          },
+          {
+            path: ':id',
+            component: SupplierCreateComponent,
+            resolve: {
+              supplier: SupplierResolverService
+            }
+          },
+          {
+            path: '',
+            component: SupplierListComponent
           }
         ]
       },

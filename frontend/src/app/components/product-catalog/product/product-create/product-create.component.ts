@@ -4,6 +4,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UNIT_LIST, UNITS} from "../../../../common/unit";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Product} from "../product";
+import {SupplierService} from "../../supplier/supplier.service";
+import {Supplier} from "../../supplier/supplier";
 
 @Component({
     selector: 'app-product-create',
@@ -15,9 +17,11 @@ export class ProductCreateComponent implements OnInit {
     submitted: boolean;
     isUpdate: boolean;
     product: Product;
+    suppliers: Supplier[];
 
     constructor(
         public productService: ProductService,
+        public supplierService: SupplierService,
         public fb: FormBuilder,
         public router: Router,
         public route: ActivatedRoute
@@ -39,6 +43,8 @@ export class ProductCreateComponent implements OnInit {
             this.controls.unit.setValue(UNITS[product.unit])
         }
 
+        this.fetchSupplierList();
+
     }
 
     onSubmit() {
@@ -57,7 +63,6 @@ export class ProductCreateComponent implements OnInit {
         }
     }
 
-
     private initForm() {
         this.form = this.fb.group({
                 id: "",
@@ -65,8 +70,19 @@ export class ProductCreateComponent implements OnInit {
                 price: ["", [Validators.required]],
                 unit: [UNITS.KG, [Validators.required]],
                 baseAmount: ["", [Validators.required]],
-                description: ["", []]
+                description: ["", []],
+                supplier: [null, []]
             }
         )
+    }
+
+    private fetchSupplierList() {
+        this.supplierService.getSupplierList().subscribe(suppliers => {
+            this.suppliers = suppliers;
+            if (this.isUpdate && this.product.supplier && this.product.supplier.id) {
+                let supplier = suppliers.find(value => value.id == this.product.supplier.id);
+                this.form.get("supplier").setValue(supplier)
+            }
+        })
     }
 }

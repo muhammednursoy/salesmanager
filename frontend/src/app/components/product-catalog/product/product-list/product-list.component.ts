@@ -8,7 +8,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 
 
 @Component({
-    selector: 'app-category-list',
+    selector: 'app-product-list',
     templateUrl: './product-list.component.html',
 })
 export class ProductListComponent implements OnInit {

@@ -24,6 +24,8 @@ import * as more from 'highcharts/highcharts-more.src';
 import * as exporting from 'highcharts/modules/exporting.src';
 import {NgbDatepickerRange} from "./common/datepicker-range/datepicker.range";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {SupplierListComponent} from "./components/product-catalog/supplier/supplier-list/supplier-list.component";
+import {SupplierCreateComponent} from "./components/product-catalog/supplier/supplier-create/supplier-create.component";
 
 export function filterGET(req: HttpRequest<any>) {
     return req.method == "GET" && /^\/api\/.*/.test(req.url);
@@ -43,6 +45,8 @@ export function filterGET(req: HttpRequest<any>) {
         ShoppingHistoryComponent,
         ProductPriceHistoryComponent,
         NgbDatepickerRange,
+        SupplierListComponent,
+        SupplierCreateComponent
     ],
     imports: [
         BrowserModule,
