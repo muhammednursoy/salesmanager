@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {Observable} from "rxjs";
+import {merge, Observable, of} from "rxjs";
 import {debounceTime, distinctUntilChanged, switchMap, tap} from "rxjs/operators";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {PageRequest, SEARCH_DUE_TIME} from "../../../common/page-request";
@@ -38,7 +38,7 @@ export class ShoppingCenterComponent implements OnInit {
     ngOnInit(): void {
         this.basketService.getBasket().subscribe(basket => this.basket = basket);
         this.form = this.fb.group({searchInput: ""});
-        this.products$ = this.form.get("searchInput").valueChanges.pipe(
+        this.products$ = merge(of(""), this.form.get("searchInput").valueChanges).pipe(
             debounceTime(SEARCH_DUE_TIME),
             distinctUntilChanged(),
             tap(() => this.clearPageRequest()),
