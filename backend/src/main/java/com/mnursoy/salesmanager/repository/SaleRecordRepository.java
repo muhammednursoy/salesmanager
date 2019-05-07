@@ -20,7 +20,8 @@ public interface SaleRecordRepository extends JpaRepository<SaleRecord, Long> {
 		+ "from sale_record where "
 		+ "(sold_product_id = :productId) and "
 		+ "(date_trunc('month', created_at) >= cast(:fromDate as date)) and "
-		+ "(date_trunc('month', created_at) <= cast(:toDate as date)) "
+		+ "(date_trunc('month', created_at) <= cast(:toDate as date)) and "
+		+ "(disabled = false)"
 		+ "group by month", nativeQuery = true)
 	List<MonthlyReport> getMonthlyIncome(@Param("productId") Long productId, @Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
 
@@ -28,7 +29,8 @@ public interface SaleRecordRepository extends JpaRepository<SaleRecord, Long> {
 		+ "from sale_record where "
 		+ "(sold_product_id = :productId) and "
 		+ "(date_trunc('month', created_at) >= cast(:fromDate as date)) and "
-		+ "(date_trunc('month', created_at) <= cast(:toDate as date)) "
+		+ "(date_trunc('month', created_at) <= cast(:toDate as date)) and "
+		+ "(disabled = false)"
 		+ "group by month", nativeQuery = true)
 	List<MonthlyReport> getMonthlySales(@Param("productId") Long productId, @Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
 }

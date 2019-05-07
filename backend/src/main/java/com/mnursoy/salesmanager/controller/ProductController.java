@@ -86,13 +86,17 @@ public class ProductController {
 	@PostMapping("disable")
 	public void disableProduct(Long id) {
 		LOG.info("disableProduct::id={}",id);
-		repository.disable(id);
+		Product product = repository.findById(id).orElseThrow(ResourceNotFoundException::new);
+		product.disable();
+		repository.save(product);
 	}
 
 	@PostMapping("enable")
 	public void enableSProduct(Long id) {
 		LOG.info("enableProduct::id={}",id);
-		repository.enable(id);
+		Product product = repository.findById(id).orElseThrow(ResourceNotFoundException::new);
+		product.enable();
+		repository.save(product);
 	}
 
 	@GetMapping("price-history")

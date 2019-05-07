@@ -28,5 +28,13 @@ public class SaleRecord extends AbstractEntity {
 	@JsonUnwrapped
 	@Embedded
 	private ProductPrice price;
+	private Boolean disabled = Boolean.FALSE;
 
+	public void disable() {
+		setDisabled(true);
+	}
+
+	public void enable() {
+		setDisabled(false);
+	}
 }

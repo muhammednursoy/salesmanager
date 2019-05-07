@@ -39,4 +39,12 @@ public class Product extends AbstractEntity {
 		category = product.getCategory();
 		supplier = product.getSupplier();
 	}
+
+	public void disable() {
+		setDisabled(true);
+	}
+
+	public void enable() {
+		setDisabled(false);
+	}
 }

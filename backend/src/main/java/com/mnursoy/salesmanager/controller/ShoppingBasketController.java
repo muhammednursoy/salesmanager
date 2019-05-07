@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mnursoy.salesmanager.entity.ShoppingBasket;
 import com.mnursoy.salesmanager.exception.ResourceNotFoundException;
 import com.mnursoy.salesmanager.repository.ProductRepository;
+import com.mnursoy.salesmanager.repository.SaleRecordRepository;
 import com.mnursoy.salesmanager.repository.ShoppingBasketRepository;
 
 /**
@@ -28,11 +29,14 @@ public class ShoppingBasketController {
 
 	private final ShoppingBasketRepository repository;
 	private final ProductRepository productRepository;
+	private final SaleRecordRepository saleRecordRepository;
 
 	@Autowired
-	public ShoppingBasketController(ShoppingBasketRepository repository, ProductRepository productRepository) {
+	public ShoppingBasketController(ShoppingBasketRepository repository, ProductRepository productRepository,
+		SaleRecordRepository saleRecordRepository) {
 		this.repository = repository;
 		this.productRepository = productRepository;
+		this.saleRecordRepository = saleRecordRepository;
 	}
 
 	@GetMapping("{id}")
@@ -61,13 +65,17 @@ public class ShoppingBasketController {
 	@PostMapping("disable")
 	public void disableShoppingBasket(Long id) {
 		LOG.info("disableShoppingBasket::id={}",id);
-		repository.disableBasket(id);
+		ShoppingBasket basketToDisable = repository.findById(id).orElseThrow(ResourceNotFoundException::new);
+		basketToDisable.disable();
+		repository.save(basketToDisable);
 	}
 
 	@PostMapping("enable")
 	public void enableShoppingBasket(Long id) {
 		LOG.info("enableShoppingBasket::id={}",id);
-		repository.enableBasket(id);
+		ShoppingBasket basketToEnable = repository.findById(id).orElseThrow(ResourceNotFoundException::new);
+		basketToEnable.enable();
+		repository.save(basketToEnable);
 	}
 
 }

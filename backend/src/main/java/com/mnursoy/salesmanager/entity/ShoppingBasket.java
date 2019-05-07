@@ -28,4 +28,13 @@ public class ShoppingBasket extends AbstractEntity {
 	private BigDecimal totalPrice = new BigDecimal(0);
 	private Boolean disabled = Boolean.FALSE;
 
+	public void disable() {
+		setDisabled(true);
+		getSaleRecords().forEach(SaleRecord::disable);
+	}
+
+	public void enable() {
+		setDisabled(false);
+		getSaleRecords().forEach(SaleRecord::enable);
+	}
 }
