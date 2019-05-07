@@ -10,6 +10,9 @@ import {AuthGuard} from "./components/auth/auth.guard";
 import {SupplierCreateComponent} from "./components/product-catalog/supplier/supplier-create/supplier-create.component";
 import {SupplierResolverService} from "./components/product-catalog/supplier/supplier-resolver.service";
 import {SupplierListComponent} from "./components/product-catalog/supplier/supplier-list/supplier-list.component";
+import {IncomeReportComponent} from "./components/report/income-report/income-report.component";
+import {ProductPriceHistoryComponent} from "./components/report/product-price-history/product-price-history.component";
+import {SaleReportComponent} from "./components/report/sale-report/sale-report.component";
 
 const routes: Routes = [
   {
@@ -58,6 +61,28 @@ const routes: Routes = [
           {
             path: '',
             component: SupplierListComponent
+          }
+        ]
+      },
+      {
+        path: 'reports',
+        children: [
+          {
+            path: 'income',
+            component: IncomeReportComponent
+          },
+          {
+            path: 'sales',
+            component: SaleReportComponent
+          },
+          {
+            path: 'prices',
+            component: ProductPriceHistoryComponent
+          },
+          {
+            path: '',
+            redirectTo: 'income',
+            pathMatch: 'prefix'
           }
         ]
       },

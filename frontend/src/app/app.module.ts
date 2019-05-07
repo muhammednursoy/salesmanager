@@ -18,7 +18,7 @@ import {CsrfTokenInterceptor} from "./common/csrf-token-interceptor";
 import {ShoppingHistoryComponent} from "./components/sales/shopping/shopping-history/shopping-history.component";
 import {BlockUIModule} from "ng-block-ui";
 import {BlockUIHttpModule} from "ng-block-ui/http";
-import {ProductPriceHistoryComponent} from "./components/product-catalog/product/product-price-history/product-price-history.component";
+import {ProductPriceHistoryComponent} from "./components/report/product-price-history/product-price-history.component";
 import {ChartModule, HIGHCHARTS_MODULES} from "angular-highcharts";
 import * as more from 'highcharts/highcharts-more.src';
 import * as exporting from 'highcharts/modules/exporting.src';
@@ -26,6 +26,9 @@ import {NgbDatepickerRange} from "./common/datepicker-range/datepicker.range";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {SupplierListComponent} from "./components/product-catalog/supplier/supplier-list/supplier-list.component";
 import {SupplierCreateComponent} from "./components/product-catalog/supplier/supplier-create/supplier-create.component";
+import {IncomeReportComponent} from "./components/report/income-report/income-report.component";
+import {NgSelectModule} from "@ng-select/ng-select";
+import {SaleReportComponent} from "./components/report/sale-report/sale-report.component";
 
 export function filterGET(req: HttpRequest<any>) {
     return req.method == "GET" && /^\/api\/.*/.test(req.url);
@@ -46,7 +49,9 @@ export function filterGET(req: HttpRequest<any>) {
         ProductPriceHistoryComponent,
         NgbDatepickerRange,
         SupplierListComponent,
-        SupplierCreateComponent
+        SupplierCreateComponent,
+        IncomeReportComponent,
+        SaleReportComponent,
     ],
     imports: [
         BrowserModule,
@@ -61,6 +66,7 @@ export function filterGET(req: HttpRequest<any>) {
         ChartModule,
         NgbDatepickerModule,
         InfiniteScrollModule,
+        NgSelectModule,
         CookieModule.forRoot(),
         BlockUIModule.forRoot(),
         BlockUIHttpModule.forRoot({

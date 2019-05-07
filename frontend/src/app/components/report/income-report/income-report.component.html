@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <div class="form-group row mt-3">
+        <label class="col-md-2 col-form-label">Ürünler:</label>
+        <div class="col-8">
+          <ng-select [items]="products"
+                     bindValue="id"
+                     bindLabel="name"
+                     appendTo="body"
+                     [closeOnSelect]="true"
+                     [multiple]="true"
+                     [(ngModel)]="selectedProductIds">
+          </ng-select>
+
+        </div>
+      </div>
+
+      <h6>
+        Başlangıç: <ng-container *ngIf="fromDate">{{fromDate.day}}/{{fromDate.month}}/{{fromDate.year}}</ng-container> &nbsp;
+        Bitiş: <ng-container *ngIf="toDate">{{toDate.day}}/{{toDate.month}}/{{toDate.year}}</ng-container>
+      </h6>
+      <button [disabled]="selectedProductIds.length == 0" class="btn btn-success d-block mb-2" (click)="getRecords()">Bu Aralıktaki Geliri Getir</button>
+      <app-datepicker-range  (fromDate)="setFromDate($event)" (toDate)="setToDate($event)"></app-datepicker-range>
+    </div>
+  </div>
+
+  <div [chart]="chart" ></div>
+</div>
+
+

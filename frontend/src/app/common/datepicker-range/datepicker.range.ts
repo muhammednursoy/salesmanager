@@ -1,13 +1,12 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+import {ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {NgbCalendar, NgbDate} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-datepicker-range',
     templateUrl: './datepicker-range.html',
     styleUrls: ['./datepicker-range.css']
 })
-export class NgbDatepickerRange {
-
+export class NgbDatepickerRange implements OnInit {
     hoveredDate: NgbDate;
 
     @Output("fromDate") fromDateEmitter = new EventEmitter<NgbDate>();
@@ -15,11 +14,18 @@ export class NgbDatepickerRange {
     fromDate: NgbDate;
     toDate: NgbDate;
 
-    constructor(calendar: NgbCalendar) {
-        this.fromDate = calendar.getToday();
-        this.toDate = null;
+    constructor(calendar: NgbCalendar, public cdref: ChangeDetectorRef) {
+        let today = calendar.getToday();
+        this.fromDate = new NgbDate(today.year - 1, today.month, today.day);
+        this.toDate = today;
         this.fromDateEmitter.emit(this.fromDate);
         this.toDateEmitter.emit(this.toDate);
+    }
+
+    ngOnInit(): void {
+        this.fromDateEmitter.emit(this.fromDate);
+        this.toDateEmitter.emit(this.toDate);
+        this.cdref.detectChanges();
     }
 
     onDateSelection(date: NgbDate) {

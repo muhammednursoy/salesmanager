@@ -1,5 +1,9 @@
 package com.mnursoy.salesmanager.configuration;
 
+import java.util.TimeZone;
+
+import javax.annotation.PostConstruct;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -31,4 +35,8 @@ public class WebConfiguration  implements WebMvcConfigurer {
 		return new InternalResourceViewResolver();
 	}
 
+	@PostConstruct
+	void started() {
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+	}
 }

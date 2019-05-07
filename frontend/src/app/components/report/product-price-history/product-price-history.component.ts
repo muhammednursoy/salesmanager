@@ -1,12 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Chart} from "angular-highcharts";
-import {ProductPriceHistoryService} from "../product-price-history.service";
-import {PriceRecord, Product} from "../product";
+import {ProductPriceHistoryService} from "../../product-catalog/product/product-price-history.service";
+import {PriceRecord, Product} from "../../product-catalog/product/product";
 import {NgbDate} from "@ng-bootstrap/ng-bootstrap";
+import {ProductService} from "../../product-catalog/product/product.service";
 
 @Component({
     selector: 'app-price-history',
     templateUrl: './product-price-history.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductPriceHistoryComponent implements OnInit {
     PAGE_SIZE = 5;
@@ -15,46 +17,33 @@ export class ProductPriceHistoryComponent implements OnInit {
     subRecordList: PriceRecord[] = [];
     fromDate: NgbDate;
     toDate: NgbDate;
+    products: Array<Product>;
+    selectedProductId;
+    product: Product;
 
-    @Input("product") product: Product;
-
-    constructor(public priceHistoryService: ProductPriceHistoryService) {
+    constructor(public priceHistoryService: ProductPriceHistoryService, public productService: ProductService) {
     }
 
     ngOnInit() {
-
-        this.priceHistoryService.getPriceHistory(this.product.id.toString(), null, null).subscribe(response => {
-
-            console.log("response", response);
-            this.init(response);
-
+        this.productService.getProductList().subscribe((list: Product[]) => {
+            this.products = list;
         });
-    }
 
-    init(response: PriceRecord[]) {
-        let chart = new Chart({
+        this.chart = new Chart({
             chart: {
                 type: 'line'
-            },
-            title: {
-                text: this.product.name + ' Ürününün Fiyat Geçmişi'
             },
             credits: {
                 enabled: false
             },
-            series: [{
-                name: 'Fiyat Değişikliği',
-                data: [
-                ],
-                type: "line",
-                marker: {
-                    enabled: true
-                }
-            }],
+            title: {
+                text: 'Fiyat Değişiklikleri'
+            },
+            series: [],
             xAxis: {
                 type: 'datetime',
-                dateTimeLabelFormats: { // don't display the dummy year
-                    month: {main:'%e. %b'},
+                dateTimeLabelFormats: {
+                    month: {main: '%e. %b'},
                     year: {main: '%b'}
                 },
                 title: {
@@ -66,22 +55,7 @@ export class ProductPriceHistoryComponent implements OnInit {
                     text: 'Fiyat'
                 }
             },
-            tooltip: {
-                headerFormat: '<b>{series.name}</b><br>',
-                pointFormat: '{point.x:%e. %b}: {point.y:.2f}TL/1' + this.getUnit()
-            },
         });
-        response.forEach(record => {
-            return chart.addPoint([record.createdAt, record.unitPrice]);
-        });
-
-        this.chart = chart;
-        this.records = response;
-
-        this.subRecordList = this.records.slice(0, this.PAGE_SIZE);
-
-        console.log("records lenght", this.records.length);
-
     }
 
     getUnit() {
@@ -108,22 +82,26 @@ export class ProductPriceHistoryComponent implements OnInit {
     }
 
     getRecords() {
-        this.priceHistoryService.getPriceHistory(String(this.product.id), this.getFormattedDate(this.fromDate), this.getFormattedDate(this.toDate)).subscribe(response => {
-            console.log("response", response);
+        if (!this.selectedProductId) {
+            return;
+        }
+        this.priceHistoryService.getPriceHistory(String(this.selectedProductId), this.getFormattedDate(this.fromDate), this.getFormattedDate(this.toDate)).subscribe(response => {
             while(this.chart.ref.series.length > 0){
                 this.chart.ref.series[0].remove(true);
             }
             this.chart.ref.addSeries({
-                name: 'Fiyat Değişikliği',
+
+                name: this.getSelectProductName(),
                 data: [
                 ],
                 type: "line",
                 marker: {
                     enabled: true
                 }
-            })
-            response.forEach(record => this.chart.addPoint([record.createdAt, record.unitPrice]))
-            this.records = response;
+            });
+            this.product = response.product;
+            this.records = response.records;
+            this.records.forEach(record => this.chart.addPoint([record.createdAt, record.unitPrice]))
             console.log("records", this.records);
             this.displayRecordTable(0);
         });
@@ -142,5 +120,9 @@ export class ProductPriceHistoryComponent implements OnInit {
         console.log("date", date);
         console.log("str", s);
         return s;
+    }
+
+    private getSelectProductName() {
+        return this.products.find(product => product.id == this.selectedProductId).name
     }
 }

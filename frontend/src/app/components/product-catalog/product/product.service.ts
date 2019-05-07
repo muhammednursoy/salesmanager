@@ -48,4 +48,9 @@ export class ProductService {
         let requestUrl = `/api/products/enable?id=${id}`;
         return this.http.post(requestUrl, {});
     }
+
+    getProductList(): Observable<Product[]> {
+        let requestUrl = `/api/products/list`;
+        return this.http.get<Product[]>(requestUrl);
+    }
 }

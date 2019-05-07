@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <div class="form-group row mt-3">
+        <label class="col-md-2 col-form-label">Ürünler:</label>
+        <div class="col-8">
+          <ng-select [items]="products"
+                     bindValue="id"
+                     bindLabel="name"
+                     appendTo="body"
+                     [closeOnSelect]="true"
+                     [multiple]="false"
+                     [(ngModel)]="selectedProductId">
+          </ng-select>
+
+        </div>
+      </div>
+
+      <h6>
+        Başlangıç: <ng-container *ngIf="fromDate">{{fromDate.day}}/{{fromDate.month}}/{{fromDate.year}}</ng-container> &nbsp;
+        Bitiş: <ng-container *ngIf="toDate">{{toDate.day}}/{{toDate.month}}/{{toDate.year}}</ng-container>
+      </h6>
+      <button [disabled]="!selectedProductId" class="btn btn-success d-block mb-2" (click)="getRecords()">Bu Aralıktaki Fiyat Değişikliklerini Getir</button>
+      <app-datepicker-range (fromDate)="setFromDate($event)" (toDate)="setToDate($event)"></app-datepicker-range>
+    </div>
+  </div>
+
+  <div [chart]="chart"></div>
+  <ng-container *ngIf="product">
+    <table class="table table-light table-striped mt-2 mb-2">
+      <thead>
+        <tr>
+          <th>Tarih</th>
+          <th>Birim Fiyat (1 {{getUnit() | enums}})</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of subRecordList">
+          <td>{{record.createdAt | date:"medium"}}</td>
+          <td>{{record.unitPrice}}</td>
+        </tr>
+        <tr *ngIf="subRecordList.length == 0">
+          <td colspan="2">
+            <div class="alert alert-warning">Bu aralıkta yapılan bir değişiklik yok.</div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot *ngIf="records.length >= PAGE_SIZE">
+        <tr>
+          <td colspan="2">
+            <ngb-pagination
+                [collectionSize]="records.length"
+                [page]="1"
+                [pageSize]="5"
+                [maxSize]="5"
+                [rotate]="true"
+                [boundaryLinks]="true"
+                (pageChange)="onPageChanged($event)">
+            </ngb-pagination>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </ng-container>
+</div>
+
+
+

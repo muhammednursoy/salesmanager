@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mnursoy.salesmanager.controller.Request.PriceHistoryRequest;
+import com.mnursoy.salesmanager.controller.model.NameAndIdOnly;
+import com.mnursoy.salesmanager.controller.model.PriceHistoryResponse;
 import com.mnursoy.salesmanager.entity.PriceRecord;
 import com.mnursoy.salesmanager.entity.Product;
 import com.mnursoy.salesmanager.exception.ResourceNotFoundException;
@@ -54,6 +56,12 @@ public class ProductController {
 		return repository.searchProducts(name, showDisabledProducts, pageable);
 	}
 
+	@GetMapping("list")
+	public List<NameAndIdOnly> getProductList() {
+		LOG.info("getProductList");
+		return repository.findBy();
+	}
+
 	@PostMapping("create")
 	public long createProduct(@RequestBody Product product) {
 		LOG.info("createProduct::product={}",product);
@@ -88,7 +96,7 @@ public class ProductController {
 	}
 
 	@GetMapping("price-history")
-	public List<PriceRecord> getPriceHistory(PriceHistoryRequest priceHistoryRequest) {
+	public PriceHistoryResponse getPriceHistory(PriceHistoryRequest priceHistoryRequest) {
 		LOG.info("getPriceHistory::priceHistoryRequest={}", priceHistoryRequest);
 		Calendar endDateCal = priceHistoryRequest.getEndDate();
 		Date endDate = null;
@@ -101,8 +109,10 @@ public class ProductController {
 		if (startDateCal != null) {
 			startDate = new Date(startDateCal.getTimeInMillis());
 		}
-
-		return productPriceRecordRepository.searchPriceRecord(priceHistoryRequest.getProductId(), startDate, endDate);
+		PriceHistoryResponse response = new PriceHistoryResponse();
+		response.setProduct(repository.findById(priceHistoryRequest.getProductId()).orElseThrow(ResourceNotFoundException::new));
+		response.setRecords(productPriceRecordRepository.searchPriceRecord(priceHistoryRequest.getProductId(), startDate, endDate));
+		return response;
 	}
 
 	private boolean isProductPriceChanged(Product product, Product entity) {
