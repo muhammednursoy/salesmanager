@@ -1,5 +1,6 @@
 package com.mnursoy.salesmanager.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mnursoy.salesmanager.entity.Customer;
 import com.mnursoy.salesmanager.entity.ShoppingBasket;
 import com.mnursoy.salesmanager.exception.ResourceNotFoundException;
 import com.mnursoy.salesmanager.repository.ProductRepository;
-import com.mnursoy.salesmanager.repository.SaleRecordRepository;
 import com.mnursoy.salesmanager.repository.ShoppingBasketRepository;
+import com.mnursoy.salesmanager.service.CustomerService;
 
 /**
  * @author Muhammed Nursoy
@@ -29,14 +31,13 @@ public class ShoppingBasketController {
 
 	private final ShoppingBasketRepository repository;
 	private final ProductRepository productRepository;
-	private final SaleRecordRepository saleRecordRepository;
+	private final CustomerService customerService;
 
 	@Autowired
-	public ShoppingBasketController(ShoppingBasketRepository repository, ProductRepository productRepository,
-		SaleRecordRepository saleRecordRepository) {
+	public ShoppingBasketController(ShoppingBasketRepository repository, ProductRepository productRepository, CustomerService customerService) {
 		this.repository = repository;
 		this.productRepository = productRepository;
-		this.saleRecordRepository = saleRecordRepository;
+		this.customerService = customerService;
 	}
 
 	@GetMapping("{id}")
@@ -58,7 +59,8 @@ public class ShoppingBasketController {
 			record.setSoldProduct(productRepository.findById(record.getSoldProduct().getId()).orElseThrow(ResourceNotFoundException::new));
 			basket.setTotalPrice(basket.getTotalPrice().add(record.getCollectedCash()));
 		});
-		basket.setDisabled(Boolean.FALSE);
+		basket.enable();
+		addCustomer(basket);
 		return repository.save(basket).getId();
 	}
 
@@ -78,4 +80,12 @@ public class ShoppingBasketController {
 		repository.save(basketToEnable);
 	}
 
+	private void addCustomer(ShoppingBasket basket) {
+		if (basket.getCustomer() == null || StringUtils.isBlank(basket.getCustomer().getEmail())) {
+			return;
+		}
+		Customer customer = customerService.getOrCreateCustomer(basket.getCustomer());
+		basket.setCustomer(customer);
+		customer.addBasket(basket);
+	}
 }

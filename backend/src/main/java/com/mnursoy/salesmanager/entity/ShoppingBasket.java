@@ -1,7 +1,6 @@
 package com.mnursoy.salesmanager.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,19 +10,21 @@ import javax.persistence.OneToMany;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * @author Muhammed Nursoy
  *
  */
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude="customer")
+@ToString(exclude = "customer")
 @Data
 @Entity
 public class ShoppingBasket extends AbstractEntity {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<SaleRecord> saleRecords;
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private Customer customer;
 	private BigDecimal totalPrice = new BigDecimal(0);
 	private Boolean disabled = Boolean.FALSE;

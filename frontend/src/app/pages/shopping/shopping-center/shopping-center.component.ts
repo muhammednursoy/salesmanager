@@ -4,11 +4,12 @@ import {debounceTime, distinctUntilChanged, switchMap, tap} from "rxjs/operators
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {PageRequest, SEARCH_DUE_TIME} from "../../../common/page-request";
 import {Product} from "../../product-catalog/product/product";
-import {SaleRecord, ShoppingBasket} from "../basket";
+import {Customer, SaleRecord, ShoppingBasket} from "../basket";
 import {ProductService} from "../../product-catalog/product/product.service";
 import {UnitPriceConverterService} from "../../../common/unit-price-converter.service";
 import {ShoppingService} from "../shopping.service";
 import {BasketService} from "../basket.service";
+import {CustomerService} from "../customer.service";
 
 @Component({
     selector: 'app-shopping-center',
@@ -26,17 +27,21 @@ export class ShoppingCenterComponent implements OnInit {
     submitted: boolean;
     throttle: number = 300;
     scrollDistance: number = 1;
+    customers: Customer[];
 
     constructor(public productService: ProductService,
                 public shoppingService: ShoppingService,
                 public fb: FormBuilder,
                 public priceConverter: UnitPriceConverterService,
-                public basketService: BasketService) {
+                public basketService: BasketService,
+                public customerService: CustomerService
+    ) {
 
     }
 
     ngOnInit(): void {
         this.basketService.getBasket().subscribe(basket => this.basket = basket);
+        this.customerService.getCustomers().subscribe(customers => this.customers = customers);
         this.form = this.fb.group({searchInput: ""});
         this.products$ = merge(of(""), this.form.get("searchInput").valueChanges).pipe(
             debounceTime(SEARCH_DUE_TIME),
@@ -69,6 +74,7 @@ export class ShoppingCenterComponent implements OnInit {
             return;
         }
 
+        console.log("basket", this.basket)
         this.shoppingService.save(this.basket).subscribe(response => {
             this.basketService.reset();
         });
@@ -97,6 +103,10 @@ export class ShoppingCenterComponent implements OnInit {
             this.products.push(...appendProductsList)
         })
     }
+
+    addCustomer(email) {
+        return {email};
+    };
 
     private clearPageRequest() {
         this.pageRequest = {page: 0, size: this.PAGE_SIZE};

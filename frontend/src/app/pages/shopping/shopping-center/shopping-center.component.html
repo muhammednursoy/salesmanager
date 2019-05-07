@@ -10,35 +10,42 @@
           </div>
           <ul class="list-group list-group-flush mt-2">
             <li *ngFor="let item of basket.saleRecords" class="list-group-item">
-              <a class="btn" (click)="deleteFromBasket(item)">
-                <i class="fas fa-times"></i>
-              </a>
-              {{item.soldProduct.name}}: {{item.saleAmount}} {{item.unit | enums}} / {{item.collectedCash}}&#8378;
-              <small class="text-muted">{{item.soldProduct.baseAmount}}{{item.soldProduct.unit|enums}}/{{item.soldProduct.price}}&#8378;</small>
-              <div class="input-group">
-                <input type="text" appDecimal [(ngModel)]="item.saleAmount" (keyup)="priceConverter.calculatePrice(item)">
-                <div class="input-group-append">
-                  <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="item.unit" (change)="priceConverter.calculatePrice(item)">
-                    <label *ngIf="item.soldProduct.unit == 'KG' || item.soldProduct.unit == 'GR'" ngbButtonLabel class="btn-primary">
-                      <input ngbButton type="radio" [value]="'KG'">
-                      kg
-                    </label>
-                    <label *ngIf="item.soldProduct.unit == 'KG' || item.soldProduct.unit == 'GR'" ngbButtonLabel class="btn-primary">
-                      <input ngbButton type="radio" [value]="'GR'">
-                      gr
-                    </label>
-                    <label *ngIf="item.soldProduct.unit == 'LT' || item.soldProduct.unit == 'ML'" ngbButtonLabel class="btn-primary">
-                      <input ngbButton type="radio" [value]="'LT'">
-                      lt
-                    </label>
-                    <label *ngIf="item.soldProduct.unit == 'LT' || item.soldProduct.unit == 'ML'" ngbButtonLabel class="btn-primary">
-                      <input ngbButton type="radio" [value]="'ML'">
-                      ml
-                    </label>
-                    <label *ngIf="item.soldProduct.unit == 'BY_PIECE'" ngbButtonLabel class="btn-primary">
-                      <input ngbButton type="radio" [value]="'BY_PIECE'">
-                      tane
-                    </label>
+              <div class="row">
+                <div class="col-lg-4">
+                  <a class="btn" (click)="deleteFromBasket(item)">
+                    <i class="fas fa-times"></i>
+                  </a>
+                  {{item.soldProduct.name}}: {{item.saleAmount}} {{item.unit | enums}} / {{item.collectedCash}}&#8378;
+                  <small class="text-muted">{{item.soldProduct.baseAmount}}{{item.soldProduct.unit|enums}}/{{item.soldProduct.price}}&#8378;</small>
+
+                </div>
+                <div class="col-lg-8">
+                  <div class="input-group">
+                    <input type="text" appDecimal [(ngModel)]="item.saleAmount" (keyup)="priceConverter.calculatePrice(item)">
+                    <div class="input-group-append">
+                      <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="item.unit" (change)="priceConverter.calculatePrice(item)">
+                        <label *ngIf="item.soldProduct.unit == 'KG' || item.soldProduct.unit == 'GR'" ngbButtonLabel class="btn-primary">
+                          <input ngbButton type="radio" [value]="'KG'">
+                          kg
+                        </label>
+                        <label *ngIf="item.soldProduct.unit == 'KG' || item.soldProduct.unit == 'GR'" ngbButtonLabel class="btn-primary">
+                          <input ngbButton type="radio" [value]="'GR'">
+                          gr
+                        </label>
+                        <label *ngIf="item.soldProduct.unit == 'LT' || item.soldProduct.unit == 'ML'" ngbButtonLabel class="btn-primary">
+                          <input ngbButton type="radio" [value]="'LT'">
+                          lt
+                        </label>
+                        <label *ngIf="item.soldProduct.unit == 'LT' || item.soldProduct.unit == 'ML'" ngbButtonLabel class="btn-primary">
+                          <input ngbButton type="radio" [value]="'ML'">
+                          ml
+                        </label>
+                        <label *ngIf="item.soldProduct.unit == 'BY_PIECE'" ngbButtonLabel class="btn-primary">
+                          <input ngbButton type="radio" [value]="'BY_PIECE'">
+                          tane
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -46,14 +53,35 @@
           </ul>
         </div>
         <div class="card-footer">
-          <button type="button" class="btn btn-outline-primary" [disabled]="basket.saleRecords.length < 1" (click)="saveSaleRecord()">{{totalPrice ? totalPrice + '&#8378; ' : ''}}Satış Yap!</button>
-          <button type="button" class="btn btn-outline-danger ml-3 float-right" [disabled]="basket.saleRecords.length < 1" (click)="resetBasket()">Sepeti Temizle</button>
+          <div class="row">
+            <div class="col-lg-6">
+              <ng-select [items]="customers"
+                         bindLabel="email"
+                         appendTo="body"
+                         placeholder="Müşteri Ekle"
+                         [closeOnSelect]="true"
+                         [multiple]="false"
+                         [addTag]="addCustomer"
+                         [hideSelected]="true"
+                         [(ngModel)]="basket.customer">
+
+                <ng-template ng-tag-tmp let-search="searchTerm">
+                  <b>Yeni Müşteri Ekle</b>: {{search}}
+                </ng-template>
+              </ng-select>
+            </div>
+            <button type="button" class="btn btn-outline-primary" [disabled]="basket.saleRecords.length < 1" (click)="saveSaleRecord()">{{totalPrice ? totalPrice + '&#8378; ' : ''}}Satış Yap!</button>
+            <button type="button" class="btn btn-outline-danger ml-3 float-right" [disabled]="basket.saleRecords.length < 1" (click)="resetBasket()">Sepeti Temizle</button>
+          </div>
         </div>
       </div>
     </div>
     <div class="col-7">
       <form class="form-inline" [formGroup]="form">
-        <button [hidden]="showShoppingHistory" class="btn btn-info mr-3" type="button" (click)="openShoppingHistory()"><i class="fas fa-history"></i> Satış Geçmişi</button>
+        <button [hidden]="showShoppingHistory" class="btn btn-info mr-3" type="button" (click)="openShoppingHistory()">
+          <i class="fas fa-history"></i>
+          Satış Geçmişi
+        </button>
         <button *ngIf="showShoppingHistory" class="btn btn-secondary mb-3" (click)="showShoppingHistory=false">Geçmişi Kapat</button>
         <div [hidden]="showShoppingHistory" class="input-group ">
           <div class="input-group-prepend">
