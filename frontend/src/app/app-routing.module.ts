@@ -1,20 +1,21 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ProductCreateComponent} from "./components/product-catalog/product/product-create/product-create.component";
-import {ProductResolverService} from "./components/product-catalog/product/product-resolver.service";
-import {ProductListComponent} from "./components/product-catalog/product/product-list/product-list.component";
-import {ShoppingCenterComponent} from "./components/sales/shopping/shopping-center/shopping-center.component";
-import {LoginComponent} from "./components/auth/login/login.component";
-import {HomeComponent} from "./components/home/home.component";
-import {AuthGuard} from "./components/auth/auth.guard";
-import {SupplierCreateComponent} from "./components/product-catalog/supplier/supplier-create/supplier-create.component";
-import {SupplierResolverService} from "./components/product-catalog/supplier/supplier-resolver.service";
-import {SupplierListComponent} from "./components/product-catalog/supplier/supplier-list/supplier-list.component";
-import {IncomeReportComponent} from "./components/report/income-report/income-report.component";
-import {ProductPriceHistoryComponent} from "./components/report/product-price-history/product-price-history.component";
-import {SaleReportComponent} from "./components/report/sale-report/sale-report.component";
+import {LoginComponent} from "./pages/auth/login/login.component";
+import {AuthGuard} from "./pages/auth/auth.guard";
+import {HomeComponent} from "./pages/home/home.component";
+import {ProductCreateComponent} from "./pages/product-catalog/product/product-create/product-create.component";
+import {ProductResolverService} from "./pages/product-catalog/product/product-resolver.service";
+import {ProductListComponent} from "./pages/product-catalog/product/product-list/product-list.component";
+import {SupplierCreateComponent} from "./pages/product-catalog/supplier/supplier-create/supplier-create.component";
+import {SupplierResolverService} from "./pages/product-catalog/supplier/supplier-resolver.service";
+import {SupplierListComponent} from "./pages/product-catalog/supplier/supplier-list/supplier-list.component";
+import {IncomeReportComponent} from "./pages/report/income-report/income-report.component";
+import {SaleReportComponent} from "./pages/report/sale-report/sale-report.component";
+import {ProductPriceHistoryComponent} from "./pages/report/product-price-history/product-price-history.component";
+import {ShoppingCenterComponent} from "./pages/shopping/shopping-center/shopping-center.component";
 
-const routes: Routes = [
+let routes: Routes;
+routes = [
   {
     path: 'login',
     component: LoginComponent
@@ -88,12 +89,7 @@ const routes: Routes = [
       },
       {
         path: 'shopping',
-        children: [
-          {
-            path: '',
-            component: ShoppingCenterComponent
-          }
-        ]
+        component: ShoppingCenterComponent
       },
       {
         path: '',
@@ -113,4 +109,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

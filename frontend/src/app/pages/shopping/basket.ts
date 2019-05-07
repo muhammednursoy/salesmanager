@@ -1,5 +1,5 @@
-import {RestModel} from "../../../common/rest-model";
-import {Product} from "../../product-catalog/product/product";
+import {RestModel} from "../../common/rest-model";
+import {Product} from "../product-catalog/product/product";
 
 export class ProductPrice {
     price: number;

@@ -2,11 +2,11 @@ import {Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
 import {debounceTime, distinctUntilChanged, switchMap, tap} from "rxjs/operators";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {PageRequest, SEARCH_DUE_TIME} from "../../../../common/page-request";
-import {Product} from "../../../product-catalog/product/product";
+import {PageRequest, SEARCH_DUE_TIME} from "../../../common/page-request";
+import {Product} from "../../product-catalog/product/product";
 import {SaleRecord, ShoppingBasket} from "../basket";
-import {ProductService} from "../../../product-catalog/product/product.service";
-import {UnitPriceConverterService} from "../../../../common/unit-price-converter.service";
+import {ProductService} from "../../product-catalog/product/product.service";
+import {UnitPriceConverterService} from "../../../common/unit-price-converter.service";
 import {ShoppingService} from "../shopping.service";
 import {BasketService} from "../basket.service";
 

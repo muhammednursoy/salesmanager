@@ -1,5 +1,5 @@
 import {Component, Inject, LOCALE_ID, OnInit} from "@angular/core";
-import {Page, PageRequest} from "../../../../common/page-request";
+import {Page, PageRequest} from "../../../common/page-request";
 import {ShoppingService} from "../shopping.service";
 import {ShoppingBasket} from "../basket";
 import {BasketService} from "../basket.service";

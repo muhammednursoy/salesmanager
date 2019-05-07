@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {ShoppingBasket} from "./basket";
-import {PageRequest} from "../../../common/page-request";
+import {PageRequest} from "../../common/page-request";
 
 @Injectable({
     providedIn: 'root',

@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
-import {ProductPrice, SaleRecord} from "../components/sales/shopping/basket";
 import {UNITS} from "./unit";
+import {ProductPrice, SaleRecord} from "../pages/shopping/basket";
 
 @Injectable({
     providedIn: 'root',
