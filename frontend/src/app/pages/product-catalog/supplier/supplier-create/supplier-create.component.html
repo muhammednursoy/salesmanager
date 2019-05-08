@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row mt-5">
-    <div class="offset-3 col-md-4">
+    <div class="offset-lg-4 col-lg-4 offset-md-1 col-md-10">
       <div class="jumbotron">
         <form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
           <div class="form-group">
@@ -12,7 +12,7 @@
           </div>
           <div class="form-group">
             <label for="descriptionInput">Üretici Bilgisi</label>
-            <textarea formControlName="description" class="form-control" id="descriptionInput" maxlength="800"></textarea>
+            <textarea formControlName="description" class="form-control" id="descriptionInput" maxlength="1000"></textarea>
           </div>
           <div class="form-group">
             <label for="nameInput">Email</label>

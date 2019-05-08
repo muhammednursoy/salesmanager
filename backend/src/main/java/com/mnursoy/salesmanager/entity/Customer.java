@@ -7,8 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -17,7 +18,8 @@ import lombok.ToString;
  */
 @EqualsAndHashCode(callSuper = true, exclude = "baskets")
 @ToString(exclude = "baskets")
-@Data
+@Getter
+@Setter
 @Entity
 public class Customer extends AbstractEntity {
 

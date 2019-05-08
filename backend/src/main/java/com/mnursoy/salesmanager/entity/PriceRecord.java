@@ -7,15 +7,17 @@ import javax.persistence.ManyToOne;
 
 import com.mnursoy.salesmanager.entity.model.ProductPrice;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Muhammed Nursoy
  *
  */
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @Entity
 public class PriceRecord extends AbstractEntity {
 

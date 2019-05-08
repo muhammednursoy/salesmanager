@@ -1,5 +1,6 @@
 package com.mnursoy.salesmanager.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -7,8 +8,9 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.mnursoy.salesmanager.entity.model.ProductPrice;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -16,12 +18,14 @@ import lombok.ToString;
  *
  */
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @ToString(callSuper = true)
 @Entity
 public class Product extends AbstractEntity {
 
 	private String name;
+	@Column(length = 1000)
 	private String description;
 	@JsonUnwrapped
 	@Embedded

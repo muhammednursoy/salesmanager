@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Chart} from "angular-highcharts";
-import {ProductPriceHistoryService} from "../../product-catalog/product/product-price-history.service";
+import {ProductPriceHistoryService} from "../product-price-history.service";
 import {PriceRecord, Product} from "../../product-catalog/product/product";
 import {NgbDate} from "@ng-bootstrap/ng-bootstrap";
 import {ProductService} from "../../product-catalog/product/product.service";

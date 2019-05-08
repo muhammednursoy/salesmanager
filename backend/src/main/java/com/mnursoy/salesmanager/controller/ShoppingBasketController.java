@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mnursoy.salesmanager.controller.model.BasketWithoutCustomer;
 import com.mnursoy.salesmanager.entity.Customer;
 import com.mnursoy.salesmanager.entity.ShoppingBasket;
 import com.mnursoy.salesmanager.exception.ResourceNotFoundException;
@@ -47,9 +48,9 @@ public class ShoppingBasketController {
 	}
 
 	@GetMapping("history")
-	public Page<ShoppingBasket> getShoppingHistory(Pageable pageable) {
+	public Page<BasketWithoutCustomer> getShoppingHistory(Pageable pageable) {
 		LOG.info("getShoppingHistory::pageable={}",pageable);
-		return repository.findAll(pageable);
+		return repository.findBy(pageable);
 	}
 
 	@PostMapping("create")

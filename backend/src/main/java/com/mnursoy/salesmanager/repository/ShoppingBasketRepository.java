@@ -3,10 +3,13 @@ package com.mnursoy.salesmanager.repository;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.mnursoy.salesmanager.controller.model.BasketWithoutCustomer;
 import com.mnursoy.salesmanager.controller.model.MonthlyReport;
 import com.mnursoy.salesmanager.entity.ShoppingBasket;
 
@@ -23,4 +26,6 @@ public interface ShoppingBasketRepository extends JpaRepository<ShoppingBasket, 
 		+ "(disabled = false)"
 		+ "group by month", nativeQuery = true)
 	List<MonthlyReport> getMonthlyIncome(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
+
+	Page<BasketWithoutCustomer> findBy(Pageable pageable);
 }

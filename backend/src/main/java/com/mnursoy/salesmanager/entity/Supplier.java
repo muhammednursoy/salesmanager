@@ -1,20 +1,19 @@
 package com.mnursoy.salesmanager.entity;
 
-import java.util.Set;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Muhammed Nursoy
  *
  */
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @Entity
 public class Supplier extends AbstractEntity {
 
@@ -22,6 +21,7 @@ public class Supplier extends AbstractEntity {
 	private String address;
 	private String phone;
 	private String email;
+	@Column(length = 1000)
 	private String description;
 
 	public void patch(Supplier supplier) {

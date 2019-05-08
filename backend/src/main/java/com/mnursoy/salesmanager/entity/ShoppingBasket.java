@@ -8,8 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -18,7 +19,8 @@ import lombok.ToString;
  */
 @EqualsAndHashCode(callSuper = true, exclude="customer")
 @ToString(exclude = "customer")
-@Data
+@Getter
+@Setter
 @Entity
 public class ShoppingBasket extends AbstractEntity {
 

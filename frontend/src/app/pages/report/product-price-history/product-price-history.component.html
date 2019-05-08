@@ -37,7 +37,7 @@
       <tbody>
         <tr *ngFor="let record of subRecordList">
           <td>{{record.createdAt | date:"medium"}}</td>
-          <td>{{record.unitPrice}}</td>
+          <td>{{record.unitPrice}} &nbsp;&#8378;</td>
         </tr>
         <tr *ngIf="subRecordList.length == 0">
           <td colspan="2">
