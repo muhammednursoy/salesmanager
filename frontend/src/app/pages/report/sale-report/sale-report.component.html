@@ -21,6 +21,8 @@
         <ng-container *ngIf="toDate">Bitiş: {{toDate.day}}/{{toDate.month}}/{{toDate.year}}</ng-container>
       </h6>
       <button *ngIf="fromDate" [disabled]="selectedProductIds.length == 0" class="btn btn-success d-block mb-2" (click)="getRecords()">Bu Aralıktaki Satışları Getir</button>
+    </div>
+    <div class="col-md-6 mt-3">
       <app-datepicker-range (fromDate)="setFromDate($event)" (toDate)="setToDate($event)"></app-datepicker-range>
     </div>
   </div>
