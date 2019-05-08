@@ -29,6 +29,7 @@ import {SupplierListComponent} from "./pages/product-catalog/supplier/supplier-l
 import {SupplierCreateComponent} from "./pages/product-catalog/supplier/supplier-create/supplier-create.component";
 import {IncomeReportComponent} from "./pages/report/income-report/income-report.component";
 import {SaleReportComponent} from "./pages/report/sale-report/sale-report.component";
+import {CustomerShoppingHistoryComponent} from './pages/shopping/customer-shopping-history/customer-shopping-history.component';
 
 export function filterGET(req: HttpRequest<any>) {
     return req.method == "GET" && /^\/api\/.*/.test(req.url);
@@ -52,6 +53,7 @@ export function filterGET(req: HttpRequest<any>) {
         SupplierCreateComponent,
         IncomeReportComponent,
         SaleReportComponent,
+        CustomerShoppingHistoryComponent,
     ],
     imports: [
         BrowserModule,

@@ -16,4 +16,9 @@ export class CustomerService {
         let requestUrl = "/api/customers/list";
         return this.http.get<Customer[]>(requestUrl);
     }
+
+    sendShoppingHistoryEmail(id: number) {
+        let requestUrl = "/api/customers/send-shopping-history-mail";
+        return this.http.post<Customer[]>(requestUrl, {}, {params:{id: String(id)}});
+    }
 }

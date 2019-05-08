@@ -13,9 +13,9 @@ import {IncomeReportComponent} from "./pages/report/income-report/income-report.
 import {SaleReportComponent} from "./pages/report/sale-report/sale-report.component";
 import {ProductPriceHistoryComponent} from "./pages/report/product-price-history/product-price-history.component";
 import {ShoppingCenterComponent} from "./pages/shopping/shopping-center/shopping-center.component";
+import {CustomerShoppingHistoryComponent} from "./pages/shopping/customer-shopping-history/customer-shopping-history.component";
 
-let routes: Routes;
-routes = [
+export let routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
@@ -90,6 +90,10 @@ routes = [
       {
         path: 'shopping',
         component: ShoppingCenterComponent
+      },
+      {
+        path: 'purchase-history',
+        component: CustomerShoppingHistoryComponent
       },
       {
         path: '',

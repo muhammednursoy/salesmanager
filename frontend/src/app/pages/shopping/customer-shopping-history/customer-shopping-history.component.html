@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row mt-5">
+    <div class="offset-lg-3 col-lg-4 offset-md-2 col-md-6">
+      <div class="jumbotron">
+        <ng-select [items]="customers"
+                   bindLabel="email"
+                   appendTo="body"
+                   placeholder="Bir müşteri seç"
+                   [closeOnSelect]="true"
+                   [multiple]="false"
+                   [hideSelected]="true"
+                   [(ngModel)]="selectedCustomer">
+        </ng-select>
+        <div class="row mt-5">
+          <div class="col text-center">
+            <button [disabled]="!selectedCustomer" (click)="sendShoppingHistoryEmail()" class="btn btn-success">Alışveriş Detaylarını Email Olarak Gönder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

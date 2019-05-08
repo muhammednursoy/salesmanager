@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="records" type="java.util.Set<com.mnursoy.salesmanager.mailing.ShoppingHistoryMailModel>"*/-->
+<head>
+  <title>Sending Email with Thymeleaf HTML Template Example</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+  <!-- use the font -->
+  <style>
+    #saleRecords {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    #saleRecords td, #saleRecords th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    #saleRecords tr:nth-child(even){background-color: #f2f2f2;}
+
+    #saleRecords tr:hover {background-color: #ddd;}
+
+    #saleRecords th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #3e863e;
+      color: white;
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0;">
+
+  <table id="saleRecords">
+    <thead>
+      <tr>
+        <th>Tarih</th>
+        <th>Ürün</th>
+        <th>Miktar</th>
+        <th>Tutar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="record : ${records}">
+        <td th:text="${record.date}"></td>
+        <td th:text="${record.productName}"></td>
+        <td th:text="${record.amount}+'/'+${record.unit}"></td>
+        <td th:text="${record.price}+' TL'"></td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>
