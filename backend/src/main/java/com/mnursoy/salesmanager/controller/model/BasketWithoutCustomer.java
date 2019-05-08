@@ -17,7 +17,7 @@ public interface BasketWithoutCustomer {
 
 	Date getCreatedAt();
 
-	BigDecimal totalPrice();
+	BigDecimal getTotalPrice();
 
 	Boolean getDisabled();
 }
