@@ -6,19 +6,14 @@
 
   <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown" ngbDropdown>
-        <a class="nav-link dropdown-toggle" id="salesDropdown" ngbDropdownToggle>Satış</a>
-        <div class="dropdown-menu" aria-labelledby="salesDropdown" ngbDropdownMenu>
-          <a class="dropdown-item" routerLink="./shopping">Satış</a>
-          <a class="dropdown-item" routerLink="./purchase-history">Alışveriş Detayları</a>
-        </div>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="./shopping">Satış</a>
       </li>
-      <li class="nav-item dropdown" ngbDropdown>
-        <a class="nav-link dropdown-toggle" id="productsDropdown" ngbDropdownToggle>Katalog</a>
-        <div class="dropdown-menu" aria-labelledby="productsDropdown" ngbDropdownMenu>
-          <a class="dropdown-item" routerLink="./products">Ürünler</a>
-          <a class="dropdown-item" routerLink="./suppliers">Üretciler</a>
-        </div>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="./products">Ürünler</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="./suppliers">Üretciler</a>
       </li>
       <li class="nav-item dropdown" ngbDropdown>
         <a class="nav-link dropdown-toggle" id="reportsDropdown" ngbDropdownToggle>Raporlar</a>
@@ -26,6 +21,7 @@
           <a class="dropdown-item" routerLink="./reports/income">Gelir Raporları</a>
           <a class="dropdown-item" routerLink="./reports/sales">Satış Raporlar</a>
           <a class="dropdown-item" routerLink="./reports/prices">Fiyat Değişiklikleri</a>
+          <a class="dropdown-item" routerLink="./purchase-history">Alışveriş Detayları</a>
         </div>
       </li>
     </ul>
