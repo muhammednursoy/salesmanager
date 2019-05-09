@@ -36,7 +36,7 @@ export class IncomeReportComponent implements OnInit {
                 type: 'column'
             },
             title: {
-                text: 'Gelirler'
+                text: 'Gelirler (TL)'
             },
             credits: {
                 enabled: false
